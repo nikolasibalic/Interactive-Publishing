@@ -18,16 +18,18 @@ interactive texts/books in EPUB3 format.
 Interactive text
 ----------------
 
-For interactive text template see [interactive_text.html](interactive_text.html).
+For interactive text template see
+[```interactive_text.html```](interactive_text.html).
 To ship your figure, provide to users .html file (with embedded JavaScript
 calculations), together with TangleKit folder and Tangle.js accessible in
 root folder of the figure .html.
 
 You can start by changing text and calculation code in
-```interactive_text.html```. Explore in-line documentation of TangleKit for
+[```interactive_text.html```](interactive_text.html).
+Explore in-line documentation of [```TangleKit```](/TangleKit) for
 more details.
 
-This uses ```TangleKit``` package from this repository that
+This uses [```TangleKit```](/TangleKit) package from this repository that
 is based on slightly modified and updated
 [Tangle.js](http://worrydream.com/Tangle/)
 library of [Bret Victor](http://worrydream.com/ExplorableExplanations/).
@@ -36,21 +38,24 @@ Interactive figures
 -------------------
 
 For interactive figure example see
-[interactive_figure.html](interactive_figure.html). It is generated
+[```interactive_figure.html```](interactive_figure.html). It is generated
 by the provided Python file
 ```
 python interactive_figure_generator.py
 ```
 
 You can start building your own example by changing code in
-```interactive_figure_generator.py ```, running Python to generate new
+[```interactive_figure_generator.py ```](interactive_figure_generator.py),
+running Python to generate new
 interactive figure, and observe results by realoading
-```interactive_figure.html``` in any web-browser.
+[```interactive_figure.html```](interactive_figure.html) in any web-browser.
 
-Example above uses Matplotlib Python package and ```ifigures``` package from
-this repository which is based
-on updated and modified version of (dependency on IPython from original
-package is removed).
+Example above uses Matplotlib Python package and [```ifigures```](/ifigures)
+package from this repository which is based
+on updated and modified version of 
+[ipywidgets-static](https://github.com/jakevdp/ipywidgets-static)
+(dependency on IPython from original
+package is removed, and Python 2 and 3 are supported now).
 
 Note of implementation
 ----------------------
