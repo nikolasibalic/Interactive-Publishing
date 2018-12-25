@@ -57,7 +57,7 @@ on updated and modified version of
 (dependency on IPython from original
 package is removed, and Python 2 and 3 are supported now).
 
-Note of implementation
+Note on implementation
 ----------------------
 Interactive text example implements simple calculations in JavaScript. More
 complex calculations should be precalculated and provided as look-up tables.
