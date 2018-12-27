@@ -34,10 +34,7 @@ You can start by changing text and calculation code in
 Explore in-line documentation of [```TangleKit```](/TangleKit) for
 more details.
 
-This uses [```TangleKit```](/TangleKit) package from this repository that
-is based on slightly modified and updated
-[Tangle.js](http://worrydream.com/Tangle/)
-library of [Bret Victor](http://worrydream.com/ExplorableExplanations/).
+
 
 Interactive figures
 -------------------
@@ -55,12 +52,8 @@ running Python to generate new
 interactive figure, and observe results by realoading
 [```interactive_figure.html```](interactive_figure.html) in any web-browser.
 
-Example above uses Matplotlib Python package and [```ifigures```](/ifigures)
-package from this repository which is based
-on updated and modified version of 
-[ipywidgets-static](https://github.com/jakevdp/ipywidgets-static)
-(dependency on IPython from original
-package is removed, and Python 2 and 3 are supported now).
+[```index.html```](index.html) containts source code of project web-page
+that incorporates both examples.
 
 Note on implementation
 ----------------------
@@ -75,6 +68,19 @@ with minimal computational resources, like ereaders, and old phones.
 
 License
 -------
+This project uses [```TangleKit```](/TangleKit) package from this repository 
+for creating interactive text. That package is based on 
+on slightly modified and updated open-source
+[Tangle.js](http://worrydream.com/Tangle/)
+library of [Bret Victor](http://worrydream.com/ExplorableExplanations/).
+
+Interactive figures use Matplotlib Python package and [```ifigures```](/ifigures)
+package from this repository which is based
+on updated and modified version of 
+[ipywidgets-static](https://github.com/jakevdp/ipywidgets-static).
+Compared to original package, dependency on IPython is removed,
+Python 2 and 3 are supported now, and few bugs are fixed.
+
 Licenses are inherited from the original projects mentioned above.
 They are permissive, and allow reuse, with or without modification, but for
 details check corresponding LICENSE files and code headers.
