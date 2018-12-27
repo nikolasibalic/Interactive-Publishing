@@ -15,6 +15,11 @@ viewing only for devices connected on Internet. Instead, the all-including
 examples can be seen on all devices, and they can be simply included in
 interactive texts/books in EPUB3 format.
 
+For quick overview what can be produced with templates check [HTML page of the
+project](https://nikolasibalic.github.io/Interactive-Publishing/).
+One example of EPUB3 eBook using interactive figures can be found
+[here](http://iopscience.iop.org/book/978-0-7503-1635-4/chapter/bk978-0-7503-1635-4ch1).
+
 Interactive text
 ----------------
 
