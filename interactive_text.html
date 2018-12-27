@@ -42,8 +42,8 @@
 						default:  // LED
 							this.powerOfLightBulb =  15;
 					}
-					this.energyConsumtion = this.lightBulbs * this.lightOnHoursDaily * this.powerOfLightBulb / 1000; // in kWh
-					this.yearlyPrice = sprintf("%.0f", 365 * this.energyConsumtion * this.priceOfkWh);
+					this.energyConsumtion = this.lightBulbs * this.lightOnHoursDaily * 365 * this.powerOfLightBulb / 1000; // in kWh
+					this.yearlyPrice = sprintf("%.0f", this.energyConsumtion * this.priceOfkWh);
 				}
 			});
 		}
