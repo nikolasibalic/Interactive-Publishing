@@ -21,6 +21,8 @@ project](https://nikolasibalic.github.io/Interactive-Publishing/).
 One example of EPUB3 eBook using interactive figures can be found
 [here](http://iopscience.iop.org/book/978-0-7503-1635-4/chapter/bk978-0-7503-1635-4ch1).
 
+[![DOI](https://zenodo.org/badge/163100222.svg)](https://zenodo.org/badge/latestdoi/163100222)
+
 Interactive text
 ----------------
 
@@ -85,3 +87,4 @@ Python 2 and 3 are supported now, and few bugs are fixed.
 Licenses are inherited from the original projects mentioned above.
 They are permissive, and allow reuse, with or without modification, but for
 details check corresponding LICENSE files and code headers.
+
