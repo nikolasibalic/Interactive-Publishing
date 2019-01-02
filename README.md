@@ -10,10 +10,11 @@ instead of usual single story line.
 Two templates and corresponding tools are provided.
 Tools generate HTML/Javascript output that can be seen in
 web-browsers and e-readers.
-Generated examples don't have any external dependencies that would require
-viewing only for devices connected on Internet. Instead, the all-including
-examples can be seen on all devices, and they can be simply included in
-interactive texts/books in EPUB3 format.
+Generated examples don't have any external dependencies that need to be
+downloaded from the Internet. They are completely self contained,
+and be seen on all devices (even without Internet access),
+and they can be simply included in interactive texts/books in EPUB3 format,
+as well as web-pages.
 
 For quick overview what can be produced with templates check [HTML page of the
 project](https://nikolasibalic.github.io/Interactive-Publishing/).
