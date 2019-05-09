@@ -5,7 +5,7 @@ This project provides quick starting point for anyone who wants to experiment
 with **interactive text and figures** in their electronic publications
 (EPUB3 / HTML5 + JavaScript). One possible reason why one would use interactive
 text and figures is to **communicate many possible stories** to the audience,
-instead of usual single story line.
+instead of usual single story line. See [Physics World blogpost](https://physicsworld.com/a/do-interactive-figures-help-physicists-to-communicate-their-science/).
 
 Two templates and corresponding tools are provided.
 Tools generate HTML/Javascript output that can be seen in
@@ -18,8 +18,10 @@ as well as web-pages.
 
 For quick overview what can be produced with templates check [HTML page of the
 project](https://nikolasibalic.github.io/Interactive-Publishing/).
-One example of EPUB3 eBook using interactive figures can be found
+An example of EPUB3 eBook using interactive figures can be found
 [here](http://iopscience.iop.org/book/978-0-7503-1635-4/chapter/bk978-0-7503-1635-4ch1).
+An example of physics blogpost incorporating interactive figures can be
+found [here](https://piphase.wordpress.com/2019/01/26/youngs-double-slit-in-colour/).
 
 [![DOI](https://zenodo.org/badge/163100222.svg)](https://zenodo.org/badge/latestdoi/163100222)
 
