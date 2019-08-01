@@ -226,7 +226,8 @@ input[type=range]:focus::-ms-fill-upper {
         defaults = tuple([widget.default for widget in self.widgets.values()])
 
         #Now reorder alphabetically by names so divnames match javascript
-        names,values,defaults = zip(*sorted(zip(names,values,defaults)))
+        names,values,defaults = zip(*sorted(zip(names,values,defaults),
+                                            key=lambda tup: tup[0].lower()))
 
         results = [self.function(**dict(zip(names, vals)))
                    for vals in itertools.product(*values)]
