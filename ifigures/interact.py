@@ -6,6 +6,21 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from io import BytesIO
 import binascii
 
+import matplotlib as mpl
+mpl.rcParams['xtick.minor.visible'] = True
+mpl.rcParams['ytick.minor.visible'] = True
+mpl.rcParams['xtick.major.size'] = 8
+mpl.rcParams['ytick.major.size'] = 8
+mpl.rcParams['xtick.minor.size'] = 4
+mpl.rcParams['ytick.minor.size'] = 4
+mpl.rcParams['xtick.direction'] = 'in'
+mpl.rcParams['ytick.direction'] = 'in'
+mpl.rcParams['xtick.top'] = True
+mpl.rcParams['ytick.right'] = True
+mpl.rcParams['font.family'] = 'serif'
+mpl.rcParams['font.family'] = 'serif'
+mpl.rcParams['axes.facecolor'] = 'None'
+mpl.rcParams['figure.facecolor']= 'None'
 
 def _get_html(obj):
     """Get the HTML representation of an object"""
@@ -52,6 +67,7 @@ input[type=range] {
   -webkit-appearance: none;
   margin: 10px 0;
   width: 100%;
+  background-color:inherit;
 }
 input[type=range]:focus {
   outline: none;

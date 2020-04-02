@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 
 def plot(amplitude, omega, color, f):
     fig, ax = plt.subplots(figsize=(8, 4))
-    ax.grid(color='w', linewidth=2, linestyle='solid')
     x = np.linspace(0, 10, 1000)
     if f=="sin":
         func = np.sin
@@ -18,6 +17,7 @@ def plot(amplitude, omega, color, f):
     ax.set_ylabel("f(x)")
     ax.set_title("amplitude = %.2f, omega = %.2f, color = %s, f(x) = amplitude * %s(omega*x)"
                  % (amplitude, omega, color, f))
+    
     return fig
 
 
