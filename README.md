@@ -88,5 +88,6 @@ Python 2 and 3 are supported now, and few bugs are fixed.
 
 Licenses are inherited from the original projects mentioned above.
 They are permissive, and allow reuse, with or without modification, but for
-details check corresponding LICENSE files and code headers.
+details check corresponding LICENSE files and code headers. Overal license
+is BSD-3-Clause.
 
