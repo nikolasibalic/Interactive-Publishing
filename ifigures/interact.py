@@ -45,7 +45,67 @@ def _eformat(f, prec, exp_digits):
 
 class InteractiveFigure(object):
     """Interactive Figure Object"""
+    
+    css_beatify = """
+    <style type="text/css">
+    
+    /* source-sans-pro-regular - latin-ext_latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/source-sans-pro-v14-latin-ext_latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
 
+/* source-sans-pro-600 - latin-ext_latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./fonts/source-sans-pro-v14-latin-ext_latin-600.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-600.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-600.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-600.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-600.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+
+/* source-sans-pro-700 - latin-ext_latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./fonts/source-sans-pro-v14-latin-ext_latin-700.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-700.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/source-sans-pro-v14-latin-ext_latin-700.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+     body{
+       font-family: 'Source Sans Pro', sans-serif;
+       }
+    select{
+        padding: 5px 10px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        border: 4px solid #7E317B;
+        border-radius: 10px;
+    }
+    </style>
+
+    """
+    
     css_style = """
     <style type="text/css">
 div.left{
@@ -152,6 +212,13 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #968E85;
 }
+span.cbseparator{
+display:inline-block;
+margin:0px;
+padding:0px;
+height:10px;
+width:30px;
+}
 </style>
     """
 
@@ -215,6 +282,9 @@ input[type=range]:focus::-ms-fill-upper {
     subdiv_template = """
     <div id="{name}" style="display:{display}">
       {content}
+      <div class="ifigurecaption">
+      {caption}
+      </div>
     </div>
     """
 
@@ -235,6 +305,7 @@ input[type=range]:focus::-ms-fill-upper {
 
         self.widgets = OrderedDict(kwargs)
         self.function = function
+        self.fileName = None
 
     def _output_html(self):
         names = [name for name in self.widgets]
@@ -256,7 +327,8 @@ input[type=range]:focus::-ms-fill-upper {
         tmplt = self.subdiv_template
         return "".join(tmplt.format(name=divname,
                                     display="block" if disp else "none",
-                                    content=_get_html(result))
+                                    content=_get_html(result),
+                                    caption="Figure aj aj")
                        for divname, result, disp in zip(divnames,
                                                         results,
                                                         display))
@@ -266,17 +338,23 @@ input[type=range]:focus::-ms-fill-upper {
         return "\n<br>\n".join([widget.html()
                                 for name, widget in sorted(self.widgets.items())])
 
-    def html(self):
-        return self.standalone_template.format(css=self.css_style,
+    def html(self, beautify=True):
+        return self.standalone_template.format(css=self.css_style + (self.css_beatify if beautify else ""),
                                                    outputs=self._output_html(),
                                                    widgets=self._widget_html())
 
     def saveStandaloneHTML(self, fileName):
+        self.fileName = fileName
         file = open(fileName, "w")
         file.write(self.html())
         file.close()
         return("Interactive figure saved in file %s" % fileName)
 
+    
+    def show(self, width=800, height=700):
+        assert self.fileName is not None, "before calling show(), save figure using saveStandaloneHTML"
+        from IPython.display import IFrame
+        return IFrame(src=self.fileName, width=width, height=height)
 
     def _repr_html_(self):
         return self.html()

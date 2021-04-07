@@ -18,7 +18,7 @@ def plot(amplitude, omega, color, f):
     ax.set_title("amplitude = %.2f, omega = %.2f, color = %s, f(x) = amplitude * %s(omega*x)"
                  % (amplitude, omega, color, f))
     
-    return fig
+    return fig, caption
 
 
 figure_example1 = InteractiveFigure(plot,

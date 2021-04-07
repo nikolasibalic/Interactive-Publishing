@@ -31,7 +31,7 @@ class StaticWidget(object):
 
 class RangeWidget(StaticWidget):
     """Range (slider) widget"""
-    slider_html = ('<div class="wrap"><div class="left"><p><b>{name}:</b></p></div>'
+    slider_html = ('<div class="wrap"><div class="left"><p><b>{name} =</b></p></div>'
                    '<div class="right"><input type="range" name="{name}" '
                    'min="{range[0]}" max="{range[1]}" step="{range[2]}" '
                    'value="{default}" style="{style}" '
@@ -69,7 +69,7 @@ class RangeWidget(StaticWidget):
         return output
 
 class DropDownWidget(StaticWidget):
-    select_html = ('<div class="wrap"><div class="left"><p><b>{name}:</b></p></div>'
+    select_html = ('<div class="wrap"><div class="left"><p><b>{name} =</b></p></div>'
                    '<div class="right"> <select name="{name}" '
                       'onchange="interactUpdate(this.parentNode);"> '
                       '{options}'
@@ -152,8 +152,8 @@ class RadioWidget(StaticWidget):
         return self._values
             
     def html(self):
-        preface = '<div class="wrap"><div class="left"><p><b>{name}:</b></p></div>'.format(name=self.name)
+        preface = '<div class="wrap"><div class="left"><p><b>{name} = </b></p></div>'.format(name=self.name)
         return  preface + '<div class="right">' + self.delimiter.join(
-            ["{0}: {1}".format(label, self._single_radio(value))
+            ["{0} {1}<span class='cbseparator'></span>".format(self._single_radio(value), label)
              for (label, value) in zip(self.labels, self._values)]) + "</div></div>"
     
