@@ -24,7 +24,7 @@ def plot(amplitude, omega, time, color, f):
 
 
 figure_example1 = InteractiveFigure(plot,
-               amplitude=RangeWidget(0.1, 0.9, 0.42),
+               amplitude=RangeWidget(0.1, 0.9, 0.4),
                omega=RangeWidget(1.0, 5.01, 2.0),
                time=RangeWidgetViridis(1,9,4),
                color=RadioWidget(['blue', 'green', 'red']),
