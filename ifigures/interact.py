@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from io import BytesIO
 import binascii
+from html import escape 
 
 import matplotlib as mpl
 mpl.rcParams['xtick.minor.visible'] = True
@@ -327,9 +328,9 @@ width:30px;
         tmplt = self.subdiv_template
         return "".join(tmplt.format(name=divname,
                                     display="block" if disp else "none",
-                                    content=_get_html(result),
-                                    caption="Figure aj aj")
-                       for divname, result, disp in zip(divnames,
+                                    content=_get_html(figure[0]),
+                                    caption=escape(figure[1]))
+                       for divname, figure, disp in zip(divnames,
                                                         results,
                                                         display))
 

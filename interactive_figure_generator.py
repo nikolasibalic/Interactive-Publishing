@@ -15,10 +15,11 @@ def plot(amplitude, omega, color, f):
     ax.set_ylim(-1.1, 1.1)
     ax.set_xlabel("x")
     ax.set_ylabel("f(x)")
-    ax.set_title("amplitude = %.2f, omega = %.2f, color = %s, f(x) = amplitude * %s(omega*x)"
-                 % (amplitude, omega, color, f))
+    ax.set_title("Figure title. f(x) = amplitude * %s(omega*x)"
+                 % (f))
     
-    return fig, caption
+    caption = "Figure caption. Amplitude = %.2f, omega = %.2f, color = %s, f(x) = amplitude * %s(omega*x)" % (amplitude, omega, color, f)
+    return (fig, caption)
 
 
 figure_example1 = InteractiveFigure(plot,
