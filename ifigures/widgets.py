@@ -27,8 +27,8 @@ class StaticWidget(object):
             obj = self
         obj.name = name
         return obj
-
-
+   
+    
 class RangeWidget(StaticWidget):
     """Range (slider) widget"""
     slider_html = ('<div class="wrap"><div class="left"><p><b>{name} =</b></p></div>'
@@ -68,6 +68,22 @@ class RangeWidget(StaticWidget):
                                           self.datarange[1])
         return output
 
+
+class RangeWidgetViridis(RangeWidget):
+    slider_html = ('<div class="wrap"><div class="left"><p><b>{name} =</b></p></div>'
+                   '<div class="right"><input class="viridisrange" type="range" name="{name}" '
+                   'min="{range[0]}" max="{range[1]}" step="{range[2]}" '
+                   'value="{default}" style="{style}" '
+                   'oninput="interactUpdate(this.parentNode);" '
+                   'onchange="interactUpdate(this.parentNode);"></div></div>')
+    def __init__(self, min, max, step=1, name=None,
+                 default=None, width=350, divclass=None,
+                 show_range=False):
+        RangeWidget.__init__(self, min, max, step=step, name=name,
+                 default=default, width=width, divclass=divclass,
+                 show_range=show_range)
+    
+    
 class DropDownWidget(StaticWidget):
     select_html = ('<div class="wrap"><div class="left"><p><b>{name} =</b></p></div>'
                    '<div class="right"> <select name="{name}" '
