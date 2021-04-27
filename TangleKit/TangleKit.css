@@ -10,6 +10,10 @@
  */
 
 
+.TKSwitch {
+	color: #519a10;
+}
+
 /* cursor */
 
 .TKCursorDragHorizontal {
@@ -31,6 +35,12 @@
 .TKList {
 	color: #83148d;
 	cursor: pointer;
+    text-decoration: underline;
+}
+.TKListHelp {
+	position:absolute;
+	color: #83148d;
+	font: 9px "Helvetica-Neue", "Arial", sans-serif;
 }
 
 /* TKAdjustableNumber */
@@ -38,6 +48,7 @@
 .TKAdjustableNumber {
 	position:relative;
 	color: #83148d;
+    text-decoration: underline;
 }
 
 .TKAdjustableNumberHover {

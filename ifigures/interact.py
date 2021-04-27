@@ -1,11 +1,19 @@
 from collections import OrderedDict
 import itertools
 import base64
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from io import BytesIO
 import binascii
 from html import escape 
+
+from PIL import Image
+import numpy as np
+
+from string import ascii_lowercase
+from .latex2png import latex2png
+from .my_plots import white_to_transparency
 
 import matplotlib as mpl
 mpl.rcParams['xtick.minor.visible'] = True
@@ -23,17 +31,27 @@ mpl.rcParams['font.family'] = 'serif'
 mpl.rcParams['axes.facecolor'] = 'None'
 mpl.rcParams['figure.facecolor']= 'None'
 
-def _get_html(obj):
-    """Get the HTML representation of an object"""
-
-    canvas = FigureCanvas(obj)
-    png_output = BytesIO()
-    canvas.print_png(png_output)
-    png_rep = png_output.getvalue()
-
+def _get_png(obj):
+    if isinstance(obj, mpl.figure.Figure):
+        canvas = FigureCanvas(obj)
+        png_output = BytesIO()
+        canvas.print_png(png_output)
+        png_rep = png_output.getvalue()
+    else:
+        # assume it's png
+        png_rep = obj
     if png_rep is not None:
         if isinstance(obj, plt.Figure):
             plt.close(obj)  # keep from displaying twice
+    return png_rep
+    
+
+def _get_html(obj):
+    """Get the HTML representation of an object"""
+
+    png_rep = _get_png(obj)
+
+    if png_rep is not None:
         return ('<img alt="figure" src="data:image/png;'
                 'base64,{0}"/>'.format(base64.b64encode(png_rep).decode("utf-8") ))
     else:
@@ -343,6 +361,7 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
         self.widgets = OrderedDict(kwargs)
         self.function = function
         self.fileName = None
+        self.overallCaption = ""
 
     def _output_html(self):
         names = [name for name in self.widgets]
@@ -369,6 +388,9 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
                        for divname, figure, disp in zip(divnames,
                                                         results,
                                                         display))
+        # NOTE: lines above can be modified such that results array is not created
+        # This would prevent opening at the same time many figures
+        # and thus be better for memory use (+ avoid warning from matplotlib)
 
 
     def _widget_html(self):
@@ -385,13 +407,82 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
         file = open(fileName, "w")
         file.write(self.html())
         file.close()
+        self.overallCaption = ""
         return("Interactive figure saved in file %s" % fileName)
 
     
+    def saveStaticFigure(self, fileName, values=None, figuresPerRow=2,
+                        labelPanels=True, labelDPI=300, labelSize=10,
+                        labelOffset=(10,10)):
+        names = [name for name in self.widgets]
+        
+        if values == None:
+            valueRanges = [widget.values() for widget in self.widgets.values()]
+            values = [vals for vals in itertools.product(*valueRanges)]
+            
+        figureIndex = 0
+        rowIndex = 0
+        rows = []
+        overallCaption = ""
+        
+        generator = latex2png() 
+
+
+ 
+        while (figureIndex < len(values)):
+            imgs = []
+            rowIndex = 0
+            
+            while (figureIndex < len(values) and rowIndex < figuresPerRow):
+                label = "(" + ascii_lowercase[figureIndex] + ")"
+                
+                fig, caption = self.function(**dict(zip(names, values[figureIndex])))
+                
+                if figureIndex != 0: overallCaption += ", "
+                overallCaption +=  label + " " + caption
+                
+                png = _get_png(fig)
+                imgs.append(Image.open(BytesIO(png)))
+                
+                if labelPanels:                    
+                    labelLatex = generator.make_png(label,
+                                               fontsize=labelSize, dpi=labelDPI)
+                    l = Image.open(labelLatex)
+                    imgs[-1].paste(l, labelOffset)
+                    
+                figureIndex += 1
+                rowIndex += 1     
+                       
+            if rowIndex < figuresPerRow:
+                imageSize = imgs[0].size
+                fill = Image.new('RGBA',
+                                imageSize,
+                                (255, 255, 255,0))  # White
+                while (rowIndex < figuresPerRow):
+                    imgs.append(fill)
+                    rowIndex += 1
+                    
+            r = [np.asarray(i) for i in imgs]
+        
+            combined = Image.fromarray(np.hstack(r))
+            rows.append(np.asarray(combined))
+    
+            
+        image = Image.fromarray(np.vstack(rows))
+        image.save(fileName, dpi=image.size)
+        
+        self.fileName = fileName
+        self.overallCaption = overallCaption
+        return
+        
+        
+    
     def show(self, width=800, height=700):
-        assert self.fileName is not None, "before calling show(), save figure using saveStandaloneHTML"
+        assert self.fileName is not None, "before calling show(), save figure using saveStandaloneHTML  or  saveStaticFigure"
+        if (self.overallCaption != ""): print(self.overallCaption)
         from IPython.display import IFrame
         return IFrame(src=self.fileName, width=width, height=height)
 
     def _repr_html_(self):
         return self.html()
+
