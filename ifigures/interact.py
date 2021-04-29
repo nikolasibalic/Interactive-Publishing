@@ -372,25 +372,23 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
         names,values,defaults = zip(*sorted(zip(names,values,defaults),
                                             key=lambda tup: tup[0].lower()))
 
-        results = [self.function(**dict(zip(names, vals)))
-                   for vals in itertools.product(*values)]
-
         divnames = [''.join(['{0}{1}'.format(n, self._get_strrep(v))
                              for n, v in zip(names, vals)])
                     for vals in itertools.product(*values)]
         display = [vals == defaults for vals in itertools.product(*values)]
 
         tmplt = self.subdiv_template
-        return "".join(tmplt.format(name=divname,
-                                    display="block" if disp else "none",
+        
+        r = []
+        i = 0
+        for vals in itertools.product(*values):
+            figure = self.function(**dict(zip(names, vals)))
+            r.append(tmplt.format(name=divnames[i],
+                                    display="block" if display[i] else "none",
                                     content=_get_html(figure[0]),
-                                    caption=escape(figure[1]))
-                       for divname, figure, disp in zip(divnames,
-                                                        results,
-                                                        display))
-        # NOTE: lines above can be modified such that results array is not created
-        # This would prevent opening at the same time many figures
-        # and thus be better for memory use (+ avoid warning from matplotlib)
+                                    caption=escape(figure[1])))
+            i += 1
+        return "".join(r)
 
 
     def _widget_html(self):
@@ -426,8 +424,6 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
         overallCaption = ""
         
         generator = latex2png() 
-
-
  
         while (figureIndex < len(values)):
             imgs = []
@@ -478,6 +474,9 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
         
     
     def show(self, width=800, height=700):
+        """
+        Shows static png or interactive html figure in Jupyter notebook
+        """
         assert self.fileName is not None, "before calling show(), save figure using saveStandaloneHTML  or  saveStaticFigure"
         if (self.overallCaption != ""): print(self.overallCaption)
         from IPython.display import IFrame
