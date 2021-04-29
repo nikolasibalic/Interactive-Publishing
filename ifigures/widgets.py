@@ -10,10 +10,10 @@ class StaticWidget(object):
             self.divargs = ""
         else:
             self.divargs = 'class:"{0}"'.format(divclass)
-    
+
     def __repr__(self):
         return self.html()
-    
+
     def _repr_html_(self):
         return self.html()
 
@@ -27,10 +27,12 @@ class StaticWidget(object):
             obj = self
         obj.name = name
         return obj
-   
-    
+
+
 class RangeWidget(StaticWidget):
-    """Range (slider) widget"""
+    """
+        Range (slider) widget
+    """
     slider_html = ('<div class="wrap"><div class="left"><p><b>{name} =</b></p></div>'
                    '<div class="right"><input type="range" name="{name}" '
                    'min="{range[0]}" max="{range[1]}" step="{range[2]}" '
@@ -48,18 +50,18 @@ class RangeWidget(StaticWidget):
             self.default = min
         else:
             self.default = default
-            
+
     def values(self):
         min, max, step = self.datarange
         return np.arange(min, max + step, step)
 
-            
+
     def html(self):
         style = ""
-        
+
         if self.width is not None:
             style += "width:{0}px".format(self.width)
-            
+
         output = self.slider_html.format(name=self.name, range=self.datarange,
                                          default=self.default, style=style)
         if self.show_range:
@@ -70,6 +72,10 @@ class RangeWidget(StaticWidget):
 
 
 class RangeWidgetViridis(RangeWidget):
+    """
+        Range (slider) widget that has viridis colourbar on background.
+        Useful for special parameter, e.g. time.
+    """
     slider_html = ('<div class="wrap"><div class="left"><p><b>{name} =</b></p></div>'
                    '<div class="right"><input class="viridisrange" type="range" name="{name}" '
                    'min="{range[0]}" max="{range[1]}" step="{range[2]}" '
@@ -82,9 +88,12 @@ class RangeWidgetViridis(RangeWidget):
         RangeWidget.__init__(self, min, max, step=step, name=name,
                  default=default, width=width, divclass=divclass,
                  show_range=show_range)
-    
-    
+
+
 class DropDownWidget(StaticWidget):
+    """
+        Drop down widget.
+    """
     select_html = ('<div class="wrap"><div class="left"><p><b>{name} =</b></p></div>'
                    '<div class="right"> <select name="{name}" '
                       'onchange="interactUpdate(this.parentNode);"> '
@@ -132,30 +141,33 @@ class DropDownWidget(StaticWidget):
                                        options=options)
 
 class RadioWidget(StaticWidget):
+    """
+        Radio button widget
+    """
     radio_html = ('<input type="radio" name="{name}" value="{value}" '
                   '{checked} '
                   'onchange="interactUpdate(this.parentNode);">')
-    
+
     def __init__(self, values, name=None,
                  labels=None, default=None, divclass=None,
                  delimiter="      "):
         StaticWidget.__init__(self, name, divclass)
         self._values = values
         self.delimiter = delimiter
-        
+
         if labels is None:
             labels = map(str, values)
         elif len(labels) != len(values):
             raise ValueError("length of labels must match length of values")
         self.labels = labels
-        
+
         if default is None:
             self.default = values[0]
         elif default in values:
             self.default = default
         else:
             raise ValueError("if specified, default must be in values")
-            
+
     def _single_radio(self, value):
         if value == self.default:
             checked = 'checked="checked"'
@@ -163,13 +175,12 @@ class RadioWidget(StaticWidget):
             checked = ''
         return self.radio_html.format(name=self.name, value=value,
                                       checked=checked)
-    
+
     def values(self):
         return self._values
-            
+
     def html(self):
         preface = '<div class="wrap"><div class="left"><p><b>{name} = </b></p></div>'.format(name=self.name)
         return  preface + '<div class="right">' + self.delimiter.join(
             ["{0} {1}<span class='cbseparator'></span>".format(self._single_radio(value), label)
              for (label, value) in zip(self.labels, self._values)]) + "</div></div>"
-    

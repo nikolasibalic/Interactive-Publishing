@@ -48,7 +48,7 @@ def presentationMode(switch, fontsize=10, linewidth=1.5):
     mpl.rcParams['ytick.major.width'] = linewidth * 0.8 / 1.5
     mpl.rcParams['ytick.minor.width'] = linewidth * 0.6 / 1.5
 
-# Durham colours
+#: Durham colour scheme
 cDUp = "#7E317B"  # Palatinate Purple
 cDUpp =  "#D8ACF4"  # Light purple
 
@@ -74,8 +74,8 @@ cDUggg = "#CFDAD1"  # Near White/L. Grey
 cDUgg = "#968E85"  # Warm Grey
 cDUg = "#6E6464"  # midgrey
 
-    
-# Aarhis colors from
+
+#: Aarhus color scheme from
 # http://medarbejdere.au.dk/en/administration/communication/guidelines/guidelinesforcolours/
 cAUn = "#003d73"
 cAUnn = "#002546"
@@ -178,6 +178,9 @@ def getComplexColor(complexNo, maxAmplitude):
     return getColor(np.absolute(complexNo), angle, maxAmplitude)
 
 def white_to_transparency(img):
+    """
+        Converts white areas of image to transprancy.
+    """
     x = np.asarray(img.convert('RGBA')).copy()
 
     x[:, :, 3] = (255 * (x[:, :, :3] != 255).any(axis=2)).astype(np.uint8)

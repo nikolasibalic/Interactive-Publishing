@@ -38,7 +38,7 @@ _log = logging.getLogger(__name__)
 
 class latex2png:
     """
-    Convert strings to dvi files using TeX, caching the results to a directory.
+    Convert strings to pdf files using pdftex, caching the results to a directory.
 
     Repeated calls to this constructor always return the same instance.
     """
@@ -161,7 +161,7 @@ class latex2png:
             r"\@ifpackageloaded{textcomp}{}{\usepackage{textcomp}}"
             r"\makeatother"
         ])
-    
+
     def make_tex2(self, tex, fontsize, border=[0,0,0,0]):
         """
         Generate a tex file to render the tex string at a specific font size.
@@ -248,7 +248,7 @@ class latex2png:
         _log.debug(report)
         return report
 
-    
+
     def make_pdf(self, tex, fontsize, border=[0,0,0,0]):
         """
         Generate a dvi file containing latex's layout of tex string.
@@ -275,8 +275,8 @@ class latex2png:
                      texfile], tex, cwd=tmpdir)
                 (Path(tmpdir) / Path(pdffile).name).replace(pdffile)
         return pdffile
-    
-    
+
+
     def make_png(self, tex, fontsize, dpi, border=[0,0,0,0]):
         """
         Generate a png file containing latex's rendering of tex string.
@@ -288,7 +288,7 @@ class latex2png:
 
         # see get_rgba for a discussion of the background
         if not os.path.exists(pngfile):
-            pdffile = self.make_pdf(tex, fontsize, border=border)                
+            pdffile = self.make_pdf(tex, fontsize, border=border)
             cmd = ["convert", "-density", str(dpi), pdffile, pngfile]
             self._run_checked_subprocess(cmd, tex)
         return pngfile
@@ -305,7 +305,7 @@ class latex2png:
             pngfile = self.make_png(tex, fontsize, dpi)
             rgba = mpl.image.imread(os.path.join(self.texcache, pngfile))
             self.grey_arrayd[key] = alpha = rgba[:, :, -1]
-    
+
         return alpha
 
     def get_rgba(self, tex, fontsize=None, dpi=None, rgb=(0, 0, 0)):
