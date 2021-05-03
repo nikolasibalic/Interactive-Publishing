@@ -189,7 +189,8 @@ class latex2png:
 \definecolor{cDUb}{RGB}{196,229,250}
 \definecolor{cDUbb}{RGB}{0,99,136}
 \definecolor{cDUg}{RGB}{207,218,209}
-\definecolor{cDUggg}{RGB}{150,142,133}
+\definecolor{cDUgg}{RGB}{150,147,133}
+\definecolor{cDUggg}{RGB}{110,100,100}
 \definecolor{cDUo}{RGB}{159,161,97}
 \definecolor{cDUr}{RGB}{226,139,162}
 \definecolor{cDUrr}{RGB}{170,43,74}
