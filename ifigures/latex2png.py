@@ -290,6 +290,7 @@ class latex2png:
         # see get_rgba for a discussion of the background
         if not os.path.exists(pngfile):
             pdffile = self.make_pdf(tex, fontsize, border=border)
+            # "-units","pixelspercentimeter",
             cmd = ["convert", "-density", str(dpi), pdffile, pngfile]
             self._run_checked_subprocess(cmd, tex)
         return pngfile

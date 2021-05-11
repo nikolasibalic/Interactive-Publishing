@@ -88,8 +88,8 @@ class EnergyLevels:
                             strength, detuning])
 
 
-    def plot(self, axis, labels=False, linewidth=4, length=0.7, stateBlob=500, fontsize=14,
-             debug=False, dpi=70, drivingStrenghtToWidth=True):
+    def plot(self, axis, labels=False, linewidth=4, length=0.7, stateBlob=500, fontsize=14, arrowLabelSize=12,
+             debug=False, dpi=100, drivingStrenghtToWidth=True):
         """
             Plots energy level digram on the given figure axis.
 
@@ -199,7 +199,9 @@ class EnergyLevels:
             # add annotation if existing
             if self.arrows[i][2] != "":
                 generator = latex2png()
-                file = generator.make_png(self.arrows[i][2], fontsize=fontsize, dpi=dpi, border=[5,5,5,5])
+                file = generator.make_png(self.arrows[i][2], 
+                                          fontsize=arrowLabelSize, dpi=dpi,
+                                          border=[5,5,5,5])
                 arr_image = plt.imread(file, format='png')
 
                 imagebox = OffsetImage(arr_image)
@@ -242,7 +244,6 @@ def blobAnnotate(axis,
             text (string) : annotation
     """
     axis.scatter([blobX],[blobY], s=blobSize, c=color)
-    curvatureSign = "+"
     axis.annotate(text, (blobX, blobY),(textX, textY),
                 ha="center", va="center",
                 size=fontsize,
@@ -292,6 +293,8 @@ class BlochSphere:
                        off_screen=True,
                            notebook=False)
         self.p.set_background(cDUsky, top="white")
+        
+        self.resolution = resolution
 
         # draw cross section of sphere with three principal coordinate planes
         num = 50
@@ -371,7 +374,7 @@ class BlochSphere:
                             (0.0, 0.0, 1)],
              labelAxis=True,
              labelSize=12,
-             labelDPI=600,
+             dpi=100,
              label=[r"$|e\rangle$",
                          r"$|g\rangle$",
                          r"$\frac{|e\rangle+|g\rangle}{\sqrt{2}}$",
@@ -410,9 +413,10 @@ class BlochSphere:
                 for i in range(len(labelOffset)):
                     labelLatex = generator.make_png(label[i],
                                                fontsize=labelSize,
-                                                dpi=labelDPI)
-                    l = white_to_transparency(Image.open(labelLatex))
-                    im.paste(l, labelOffset[i], l)
+                                                dpi=dpi * self.resolution*2)
+                    #white_to_transparency(Image.open(labelLatex))
+                    l = Image.open(labelLatex)
+                    im.paste(l, labelOffset[i], l.convert('RGBA'))
 
                 axis.imshow(im)
             else:

@@ -13,7 +13,6 @@ import numpy as np
 
 from string import ascii_lowercase
 from .latex2png import latex2png
-from .my_plots import white_to_transparency
 
 import matplotlib as mpl
 mpl.rcParams['xtick.minor.visible'] = True
@@ -410,7 +409,7 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
 
     
     def saveStaticFigure(self, fileName, values=None, figuresPerRow=2,
-                        labelPanels=True, labelDPI=300, labelSize=10,
+                        labelPanels=True, dpi=300, labelSize=10,
                         labelOffset=(10,10)):
         names = [name for name in self.widgets]
         
@@ -442,9 +441,9 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
                 
                 if labelPanels:                    
                     labelLatex = generator.make_png(label,
-                                               fontsize=labelSize, dpi=labelDPI)
+                                               fontsize=labelSize, dpi=dpi)
                     l = Image.open(labelLatex)
-                    imgs[-1].paste(l, labelOffset)
+                    imgs[-1].paste(l, labelOffset,l.convert('RGBA'))
                     
                 figureIndex += 1
                 rowIndex += 1     
@@ -465,7 +464,7 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
     
             
         image = Image.fromarray(np.vstack(rows))
-        image.save(fileName, dpi=(300,300))
+        image.save(fileName, dpi=(dpi,dpi))
         
         self.fileName = fileName
         self.overallCaption = overallCaption
