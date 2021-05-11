@@ -30,7 +30,12 @@ mpl.rcParams['font.family'] = 'serif'
 mpl.rcParams['font.family'] = 'serif'
 mpl.rcParams['axes.facecolor'] = 'None'
 
-def _get_encoded_png(image):
+def _get_encoded_png(image, maxWidth=5000):
+    size = image.size;
+    if (size[0]>maxWidth):
+        newSize = (int(image.size[0] * maxWidth/size[0]),
+                   int(image.size[1] * maxWidth/size[0]) )
+        image = image.resize(newSize)
     in_mem_file = BytesIO()
     image.save(in_mem_file, format = "PNG")
     # reset file pointer to start
@@ -90,7 +95,7 @@ function showEvent(blockName) {{
     css = r"""
 
     
-<style type="text/css">
+<style>
 
     /* source-sans-pro-regular - latin-ext_latin */
 @font-face {{
@@ -146,8 +151,8 @@ background-color:#CFDAD1;
 border-radius: 15px;
 }}
 .event_image{{
-height: 300px;
-width: auto;
+max-width: 500px;
+max-height: 300px;
 float:right;
 margin-left:10px;
 border-radius:10px;
@@ -162,7 +167,7 @@ border-radius: 15px;
 text-align:left;
 }}
 a{{
-  text-decoration: none;
+  text-decoration: underline solid 2px #7E317B;
   color:black;
 }}
 .credits{{
@@ -220,7 +225,7 @@ a{{
 """
     
     def __init__(self, startYear=1900, endYear=2020, clickMarker=None, backgroundImage=None, title="",
-                introText='<p><b>Interactive timeline</b>: To explore events </b><span class="interactivecolor"><b>click on circles</b></span>.</p>',
+                introText='<p><b>Interactive timeline</b>: To explore events <span class="interactivecolor"><b>click on circles</b></span>.</p>',
                 introImage=None, 
                 introCredits=""):
         self.startYear = startYear
@@ -255,7 +260,7 @@ a{{
             imageSize = im.size
             positionX = (e["year"]- self.startYear) / (self.endYear - self.startYear)
             positionX *= imageSize[0]
-            positionY = imageSize[1]/2 + e["offsetY"] % (imageSize[1]//2)
+            positionY = imageSize[1]/2 + e["offsetY"]
             positionX = "%.0d" % positionX
             positionY = "%.0d" % positionY
             
@@ -271,7 +276,7 @@ a{{
                 sideImage = Image.open(e["image"])
                 eventsHTML.append(self.event_template.format(eventId = eid,
                                                title=e["title"],
-                                               imageName=_get_encoded_png(sideImage),
+                                               imageName=_get_encoded_png(sideImage, maxWidth=900),
                                                year=e["year"],
                                                text=e["text"],
                                                credits=e["credits"]))
