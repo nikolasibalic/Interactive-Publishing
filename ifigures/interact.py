@@ -465,7 +465,7 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
     
             
         image = Image.fromarray(np.vstack(rows))
-        image.save(fileName, dpi=image.size)
+        image.save(fileName, dpi=(300,300))
         
         self.fileName = fileName
         self.overallCaption = overallCaption
