@@ -33,7 +33,7 @@ class RangeWidget(StaticWidget):
     """
         Range (slider) widget
     """
-    slider_html = ('<div class="wrap"><div class="left"><p><b>{name} =</b></p></div>'
+    slider_html = ('<div class="wrap"><div class="left"><p><b>{paramName} =</b></p></div>'
                    '<div class="right"><input type="range" name="{name}" '
                    'min="{range[0]}" max="{range[1]}" step="{range[2]}" '
                    'value="{default}" style="{style}" '
@@ -62,7 +62,8 @@ class RangeWidget(StaticWidget):
         if self.width is not None:
             style += "width:{0}px".format(self.width)
 
-        output = self.slider_html.format(name=self.name, range=self.datarange,
+        output = self.slider_html.format(paramName=self.name.replace("_"," "),
+                                         name=self.name, range=self.datarange,
                                          default=self.default, style=style)
         if self.show_range:
             output = "{0} {1} {2}".format(self.datarange[0],
@@ -76,7 +77,7 @@ class RangeWidgetViridis(RangeWidget):
         Range (slider) widget that has viridis colourbar on background.
         Useful for special parameter, e.g. time.
     """
-    slider_html = ('<div class="wrap"><div class="left"><p><b>{name} =</b></p></div>'
+    slider_html = ('<div class="wrap"><div class="left"><p><b>{paramName} =</b></p></div>'
                    '<div class="right"><input class="viridisrange" type="range" name="{name}" '
                    'min="{range[0]}" max="{range[1]}" step="{range[2]}" '
                    'value="{default}" style="{style}" '
@@ -94,7 +95,7 @@ class DropDownWidget(StaticWidget):
     """
         Drop down widget.
     """
-    select_html = ('<div class="wrap"><div class="left"><p><b>{name} =</b></p></div>'
+    select_html = ('<div class="wrap"><div class="left"><p><b>{nameParam} =</b></p></div>'
                    '<div class="right"> <select name="{name}" '
                       'onchange="interactUpdate(this.parentNode);"> '
                       '{options}'
@@ -137,7 +138,8 @@ class DropDownWidget(StaticWidget):
             [self._single_option(label,value)
              for (label,value) in zip(self.labels, self._values)]
         )
-        return self.select_html.format(name=self.name,
+        return self.select_html.format(nameParam=self.name.replace("_"," "),
+                                       name=self.name,
                                        options=options)
 
 class RadioWidget(StaticWidget):
@@ -180,7 +182,8 @@ class RadioWidget(StaticWidget):
         return self._values
 
     def html(self):
-        preface = '<div class="wrap"><div class="left"><p><b>{name} = </b></p></div>'.format(name=self.name)
+        preface = '<div class="wrap"><div class="left"><p><b>{paramName} = </b></p></div>'.format(
+            paramName=self.name.replace("_"," "))
         return  preface + '<div class="right">' + self.delimiter.join(
             ["{0} {1}<span class='cbseparator'></span>".format(self._single_radio(value), label)
              for (label, value) in zip(self.labels, self._values)]) + "</div></div>"
