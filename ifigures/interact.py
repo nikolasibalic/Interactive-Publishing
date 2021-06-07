@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from io import BytesIO
 import binascii
-from html import escape 
+from html import escape
 
 from PIL import Image
 import numpy as np
@@ -43,7 +43,7 @@ def _get_png(obj):
         if isinstance(obj, plt.Figure):
             plt.close(obj)  # keep from displaying twice
     return png_rep
-    
+
 
 def _get_html(obj):
     """Get the HTML representation of an object"""
@@ -63,10 +63,10 @@ def _eformat(f, prec, exp_digits):
 
 class InteractiveFigure(object):
     """Interactive Figure Object"""
-    
+
     css_beatify = """
     <style type="text/css">
-    
+
     /* source-sans-pro-regular - latin-ext_latin */
 @font-face {
   font-family: 'Source Sans Pro';
@@ -123,7 +123,7 @@ class InteractiveFigure(object):
     </style>
 
     """
-    
+
     css_style = """
     <style type="text/css">
 div.left{
@@ -377,7 +377,7 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
         display = [vals == defaults for vals in itertools.product(*values)]
 
         tmplt = self.subdiv_template
-        
+
         r = []
         i = 0
         for vals in itertools.product(*values):
@@ -407,47 +407,55 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
         self.overallCaption = ""
         return("Interactive figure saved in file %s" % fileName)
 
-    
+
     def saveStaticFigure(self, fileName, values=None, figuresPerRow=2,
                         labelPanels=True, dpi=300, labelSize=10,
-                        labelOffset=(10,10)):
+                        labelOffset=(10,10), labelGenerator=None):
         names = [name for name in self.widgets]
-        
+
         if values == None:
             valueRanges = [widget.values() for widget in self.widgets.values()]
             values = [vals for vals in itertools.product(*valueRanges)]
-            
+
         figureIndex = 0
         rowIndex = 0
         rows = []
         overallCaption = ""
-        
-        generator = latex2png() 
- 
+
+        generator = latex2png()
+
         while (figureIndex < len(values)):
             imgs = []
             rowIndex = 0
-            
+
             while (figureIndex < len(values) and rowIndex < figuresPerRow):
-                label = "(" + ascii_lowercase[figureIndex] + ")"
-                
+                if (labelGenerator is None):
+                    if (len(values) <= 25):
+                        label = "(" + ascii_lowercase[figureIndex] + ")"
+                    else:
+                        label = "(%d)" % figureIndex
+                    if (labelPanels):
+                        labelLatex = generator.make_png(label,
+                                                   fontsize=labelSize, dpi=dpi)
+                else:
+                    label, labelLatex = labelGenerator(figureIndex,
+                                                       dict(zip(names, values[figureIndex])))
+
                 fig, caption = self.function(**dict(zip(names, values[figureIndex])))
-                
+
                 if figureIndex != 0: overallCaption += ", "
                 overallCaption +=  label + " " + caption
-                
+
                 png = _get_png(fig)
                 imgs.append(Image.open(BytesIO(png)))
-                
-                if labelPanels:                    
-                    labelLatex = generator.make_png(label,
-                                               fontsize=labelSize, dpi=dpi)
+
+                if labelPanels:
                     l = Image.open(labelLatex)
                     imgs[-1].paste(l, labelOffset,l.convert('RGBA'))
-                    
+
                 figureIndex += 1
-                rowIndex += 1     
-                       
+                rowIndex += 1
+
             if rowIndex < figuresPerRow:
                 imageSize = imgs[0].size
                 fill = Image.new('RGBA',
@@ -456,22 +464,22 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
                 while (rowIndex < figuresPerRow):
                     imgs.append(fill)
                     rowIndex += 1
-                    
+
             r = [np.asarray(i) for i in imgs]
-        
+
             combined = Image.fromarray(np.hstack(r))
             rows.append(np.asarray(combined))
-    
-            
+
+
         image = Image.fromarray(np.vstack(rows))
         image.save(fileName, dpi=(dpi,dpi))
-        
+
         self.fileName = fileName
         self.overallCaption = overallCaption
         return
-        
-        
-    
+
+
+
     def show(self, width=800, height=700):
         """
         Shows static png or interactive html figure in Jupyter notebook
@@ -483,4 +491,3 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
 
     def _repr_html_(self):
         return self.html()
-
