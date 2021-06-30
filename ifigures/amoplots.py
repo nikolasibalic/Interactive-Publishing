@@ -354,9 +354,10 @@ class BlochSphere:
         """
             Adds state arrow to the Bloch sphere, given the tip position.
         """
+        length = np.sqrt(x*x + y*y + z*z)
         arrow=pv.Arrow(start=(0.0, 0.0, 0.0), direction=np.array([x,y,z]) * self.r,
                        tip_length=0.25, tip_radius=0.1, tip_resolution=20,
-                       shaft_radius=0.05, shaft_resolution=20, scale=self.r)
+                       shaft_radius=0.05, shaft_resolution=20, scale=length * self.r)
         self.p.add_mesh(arrow, opacity=1.0, color=color, smooth_shading=True)
 
     def addTrajectory(self, trajectoryXYZ):
