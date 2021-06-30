@@ -4,3 +4,4 @@ __pycache__/*
 *.ipynb
 *.png
 *.html
+.ipynb_checkpoints
