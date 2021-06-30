@@ -5,3 +5,5 @@ __pycache__/*
 *.png
 *.html
 .ipynb_checkpoints
+*.svg
+*.jpg
