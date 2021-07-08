@@ -126,18 +126,28 @@ class InteractiveFigure(object):
 
     css_style = """
     <style type="text/css">
+    body{
+    margin:0px;
+    }
 div.left{
 margin-left:10px;
 float:left;
 width:300px;
 vertical-align: middle;
+max-width:100%;
 }
 div.right{
 float:left;
 width:300px;
+max-width:100%;
 }
 div.wrap{
 display:inline-block;
+max-width:100%;
+}
+
+img{
+    max-width:100%;
 }
 
 input[type=range] {
@@ -199,7 +209,7 @@ input[type=range]::-ms-track {
   cursor: pointer;
   animate: 0.2s;
   background: transparent;
-  border-color: transparent;
+  border-color: transparent;max-width:100%;
   color: transparent;
 }
 input[type=range]::-ms-fill-lower {
@@ -318,6 +328,17 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
            }}
          }}
       }}
+      window.addEventListener("load", fitWindow);
+      window.addEventListener("resize", fitWindow);
+      function fitWindow(){{
+        var scale =1;
+        var elm = document.body;
+        var scale = Math.min(1,1/Math.max(elm.clientWidth/window.innerWidth,
+        elm.clientHeight/window.innerHeight))
+        elm.style.transformOrigin='top left';
+        elm.style.transform='scale('+scale
+          +')';
+          }}
     </script>
     {css}
     </head>

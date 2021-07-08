@@ -60,7 +60,7 @@ class RangeWidget(StaticWidget):
         style = ""
 
         if self.width is not None:
-            style += "width:{0}px".format(self.width)
+            style += "width:{0}px; max-width:100%;".format(self.width)
 
         output = self.slider_html.format(paramName=self.name.replace("_"," "),
                                          name=self.name, range=self.datarange,
