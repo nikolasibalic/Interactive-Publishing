@@ -128,6 +128,13 @@ class InteractiveFigure(object):
     <style type="text/css">
     body{
     margin:0px;
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  overflow:hidden;
     }
 div.left{
 margin-left:10px;
