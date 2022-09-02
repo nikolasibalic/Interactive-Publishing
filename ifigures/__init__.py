@@ -5,4 +5,4 @@ from .widgets import RadioWidget, RangeWidget, RangeWidgetViridis, DropDownWidge
 from .timelines import InteractiveTimeline
 from .latex2png import latex2png
 from .amoplots import EnergyLevels, blobAnnotate, xAnnotate, yAnnotate, equation, BlochSphere
-
+from .amoplotsnew import EnergyLevelsNew

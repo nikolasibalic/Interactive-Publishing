@@ -23,7 +23,7 @@ mpl.rcParams['ytick.right'] = True
 mpl.rcParams['font.family'] = 'serif'
 mpl.rcParams['savefig.transparent'] = True
 
-mpl.rcParams["text.latex.preamble"]  = r"\usepackage{amsmath} \usepackage{amssymb} \usepackage[bitstream-charter]{mathdesign}"
+mpl.rcParams["text.latex.preamble"]  = r"\usepackage{amsmath} \usepackage{amssymb} \usepackage{color} \usepackage[bitstream-charter]{mathdesign}"
 mpl.rcParams["text.usetex"] = True
 
 def presentationMode(switch, fontsize=10, linewidth=1.5):
