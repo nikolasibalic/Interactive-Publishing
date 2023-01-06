@@ -10,6 +10,7 @@ from html import escape
 
 from PIL import Image
 import numpy as np
+import pngquant
 
 from string import ascii_lowercase
 from .latex2png import latex2png
@@ -30,7 +31,7 @@ mpl.rcParams['font.family'] = 'serif'
 mpl.rcParams['axes.facecolor'] = 'None'
 mpl.rcParams['figure.facecolor']= 'None'
 
-def _get_png(obj):
+def _get_png(obj, compress=False):
     if isinstance(obj, mpl.figure.Figure):
         canvas = FigureCanvas(obj)
         png_output = BytesIO()
@@ -42,13 +43,17 @@ def _get_png(obj):
     if png_rep is not None:
         if isinstance(obj, plt.Figure):
             plt.close(obj)  # keep from displaying twice
+        if compress:
+            pngquant.config(min_quality=40, max_quality=100)
+            ratio, png_rep = pngquant.quant_data(png_rep)
+    
     return png_rep
 
 
-def _get_html(obj):
+def _get_html(obj, compress=False):
     """Get the HTML representation of an object"""
 
-    png_rep = _get_png(obj)
+    png_rep = _get_png(obj, compress=compress)
 
     if png_rep is not None:
         return ('<img alt="figure" src="data:image/png;'
@@ -412,7 +417,7 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
             figure = self.function(**dict(zip(names, vals)))
             r.append(tmplt.format(name=divnames[i],
                                     display="block" if display[i] else "none",
-                                    content=_get_html(figure[0]),
+                                    content=_get_html(figure[0], compress=self.compress),
                                     caption=escape(figure[1])))
             i += 1
         return "".join(r)
@@ -427,7 +432,8 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
                                                    outputs=self._output_html(),
                                                    widgets=self._widget_html())
 
-    def saveStandaloneHTML(self, fileName):
+    def saveStandaloneHTML(self, fileName, compress=False):
+        self.compress = compress
         self.fileName = fileName
         file = open(fileName, "w")
         file.write(self.html())
@@ -438,7 +444,9 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
 
     def saveStaticFigure(self, fileName, values=None, figuresPerRow=2,
                         labelPanels=True, dpi=300, labelSize=10,
-                        labelOffset=(10,10), labelGenerator=None):
+                        labelOffset=(10,10), labelGenerator=None,
+                        compress=False):
+        self.compress = compress
         names = [name for name in self.widgets]
 
         if values == None:
@@ -474,7 +482,7 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
                 if figureIndex != 0: overallCaption += ", "
                 overallCaption +=  label + " " + caption
 
-                png = _get_png(fig)
+                png = _get_png(fig, compress=compress)
                 imgs.append(Image.open(BytesIO(png)))
 
                 if labelPanels:

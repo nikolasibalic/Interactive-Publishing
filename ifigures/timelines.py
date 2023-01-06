@@ -8,6 +8,7 @@ from io import BytesIO, StringIO
 import binascii
 from html import escape
 import os
+import pngquant
 
 from PIL import Image
 import numpy as np
@@ -72,13 +73,16 @@ def _html2latex(html):
     latex = __section_html2latex(root)
     return _htmlEncoding2LaTeX(latex)
 
-def _get_encoded_png(image, maxWidth=5000):
+def _get_encoded_png(image, maxWidth=5000, compress=False):
     image = _get_png_image(image, maxWidth=maxWidth)
     in_mem_file = BytesIO()
     image.save(in_mem_file, format = "PNG")
     # reset file pointer to start
     in_mem_file.seek(0)
     img_bytes = in_mem_file.read()
+    if compress:
+        pngquant.config(min_quality=40, max_quality=100)
+        _, img_bytes = pngquant.quant_data(img_bytes)
 
     return "data:image/png;base64,{0}".format(base64.b64encode(img_bytes).decode("utf-8"))
 
@@ -322,7 +326,13 @@ a{{
     def __init__(self, startYear=1900, endYear=2020, clickMarker=None, backgroundImage=None, title="",
                 introText='<p><b>Interactive timeline</b>: To explore events <span class="interactivecolor"><b>click on circles</b></span>.</p>',
                 introImage=None,
-                introCredits=""):
+                introCredits="",
+                compress=False):
+        """
+        Args:
+            compress (bool): if True will try to compress all images uses pngquant.
+                For this pngquant command on command line has to exist.
+        """
         self.startYear = startYear
         self.endYear = endYear
         self.backgroundImage = backgroundImage
@@ -333,6 +343,7 @@ a{{
         self.events = []
         self.fileName = None
         self.clickMarker = Image.open(clickMarker)
+        self.compress = compress
 
     def addEvent(self, year, title, text, image=None, credits="", offsetY=0):
         self.events.append({"year" : year,
@@ -373,7 +384,8 @@ a{{
                 sideImage = Image.open(e["image"])
                 eventsHTML.append(self.event_template.format(eventId = eid,
                                                title=e["title"],
-                                               imageName=_get_encoded_png(sideImage, maxWidth=500),
+                                               imageName=_get_encoded_png(sideImage,
+                                                maxWidth=500, compress=self.compress),
                                                year=e["year"],
                                                text=e["text"],
                                                credits=e["credits"]))
@@ -397,7 +409,9 @@ a{{
 
         r = self.standalone_template.format(title=self.title,
                                        css=self.css.format(eventBoxWidth=im.size[0]-30),
-                                       backgroundImage=_get_encoded_png(im),
+                                       backgroundImage=_get_encoded_png(im,
+                                        compress=self.compress
+                                        ),
                                        imagemap=imageMap,
                                        imageWidth=im.size[0],
                                        imageHeight=im.size[1],
