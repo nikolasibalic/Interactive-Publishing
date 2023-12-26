@@ -226,8 +226,8 @@ class EnergyLevels:
         if not debug:
             axis.set_axis_off()
 
-def blobAnnotate(axis,
-                 blobX, blobY,
+def blobAnnotate(axis: plt.axis,
+                 blobX:float, blobY:float,
                  textX, textY,
                  text,
                  blobSize=100, linewidth=3, fontsize=12,
@@ -237,8 +237,8 @@ def blobAnnotate(axis,
 
         Args:
             axis : figure axis where we do blob annotation
-            blobX (float) : X position of blob higlight on axis
-            blobY (float) : Y position of blob higlight on axis
+            blobX (float) : X position of blob highlight on axis
+            blobY (float) : Y position of blob highlight on axis
             textX (float) : X position of corresponding annotation
             textY (float) : Y position of corresponding annotation
             text (string) : annotation

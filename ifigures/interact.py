@@ -432,7 +432,13 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
                                                    outputs=self._output_html(),
                                                    widgets=self._widget_html())
 
-    def saveStandaloneHTML(self, fileName, compress=False):
+    def saveStandaloneHTML(self, fileName:str, compress:bool=False):
+        """Saves interactive figure as stand alone HTML file
+
+        Args:
+            fileName (str): test
+            compress (bool, optional): test. Defaults to False.
+        """
         self.compress = compress
         self.fileName = fileName
         file = open(fileName, "w")

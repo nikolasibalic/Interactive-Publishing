@@ -1,0 +1,141 @@
+site_name: Interactive Publishing
+
+site_author: Nikola Šibalić
+copyright: Copyright &copy; Nikola Šibalić 2018-2024
+repo_url: https://github.com/nikolasibalic/Interactive-Publishing
+repo_name: nikolasibalic/Interactive-Publishing
+
+theme:
+  name: material
+  features:
+    - search.suggest
+  language: en
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - search
+    - search.suggest
+    - search.highlight
+    - search.share
+    - navigation.instant
+    - navigation.tracking
+    - navigation.indexes
+    - navigation.top
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    - content.tooltips
+    - minify_html: true
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+  palette: 
+
+
+
+  # Palette toggle for light mode
+  - scheme: custom-bright
+    toggle:
+      icon: material/brightness-7 
+      name: Switch to dark mode
+
+  # Palette toggle for dark mode
+  - scheme: slate
+    toggle:
+      icon: material/brightness-4
+      name: Switch to light mode
+
+
+
+plugins:
+  - search
+  - social
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: false
+            filters: ["!^_"]
+            merge_init_into_class: true
+            docstring_section_style: "spacy"
+            show_bases: false
+            show_signature: true
+            show_signature_annotations: false
+            show_root_heading: true
+            show_root_toc_entry: true
+            group_by_category: true
+            docstring_style: google
+            show_docstring_attributes: true
+            heading_level: 3
+            docstring_section_style: list
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      height: auto
+      zoomable: true
+      draggable: true
+      skip_classes:
+        - custom-skip-class-name
+      auto_caption: false
+      caption_position: bottom
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - git-committers:
+      repository: nikolasibalic/Interactive-Publishing
+      branch: main
+
+extra_javascript:
+  - javascripts/TangleKit/BVTouchable.js
+  - javascripts/TangleKit/TangleKit.js
+  - javascripts/TangleKit/sprintf.js
+  - javascripts/TangleKit/mootools.js
+  - javascripts/Tangle.js
+
+extra_css:
+  - javascripts/TangleKit/TangleKit.css
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - admonition
+  - attr_list
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.keys
+  - pymdownx.snippets:
+      check_paths: true
+      auto_append: []
+      base_path: ["docs"]
+  - pymdownx.inlinehilite
+  - abbr
+  - md_in_html
+  - toc:
+      permalink: true
+      title: On this page
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.arithmatex:
+      generic: true
+
+  
+
+navigation:
+  - "ifigures API": ifigures_api.md

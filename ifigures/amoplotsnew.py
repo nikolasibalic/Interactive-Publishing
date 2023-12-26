@@ -20,7 +20,7 @@ class EnergyLevelsNew:
         self.arrows = []
         self.state_color = []
 
-    def add(self, label, locationX, locationY, color="k"):
+    def add(self, label:str, locationX:float, locationY:float, color="k"):
         """
           Adds energy level
 
@@ -64,14 +64,14 @@ class EnergyLevelsNew:
         return len(self.locationX)
 
 
-    def addArrow(self, fromStateIndex, toStateIndex, label="", style="<->", color="k", strength=1,
-                 detuning = None):
+    def addArrow(self, fromStateIndex:int, toStateIndex:int, label:str="", style="<->", color="k", strength:float=1,
+                 detuning:float = None):
         """
             Adds arrow to the energy level diagram.
 
             Args:
                 fromStateIndex (int): index of the first state
-                toStateINdex (int): index of the second state it points to
+                toStateIndex (int): index of the second state it points to
                 style (string): style of arrow, accepted values are
                     '<-', '->' or '<->' . Default is '<->'
                 detuning: None by default. Or  (relativeValue, "label") tuple

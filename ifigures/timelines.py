@@ -323,11 +323,11 @@ a{{
 </div>
 """
 
-    def __init__(self, startYear=1900, endYear=2020, clickMarker=None, backgroundImage=None, title="",
+    def __init__(self, startYear:int=1900, endYear:int=2020, clickMarker=None, backgroundImage=None, title:str="",
                 introText='<p><b>Interactive timeline</b>: To explore events <span class="interactivecolor"><b>click on circles</b></span>.</p>',
                 introImage=None,
-                introCredits="",
-                compress=False):
+                introCredits:str="",
+                compress:bool=False):
         """
         Args:
             compress (bool): if True will try to compress all images uses pngquant.
@@ -345,7 +345,17 @@ a{{
         self.clickMarker = Image.open(clickMarker)
         self.compress = compress
 
-    def addEvent(self, year, title, text, image=None, credits="", offsetY=0):
+    def addEvent(self, year:int, title:str, text:str, image=None, credits:str="", offsetY:int=0):
+        """Adds event to the timeline
+
+        Args:
+            year (int): _description_
+            title (str): _description_
+            text (str): _description_
+            image (_type_, optional): _description_. Defaults to None.
+            credits (str, optional): _description_. Defaults to "".
+            offsetY (int, optional): _description_. Defaults to 0.
+        """
         self.events.append({"year" : year,
                         "title" : title,
                         "text" : text,
@@ -354,7 +364,12 @@ a{{
                         "offsetY" : offsetY})
         return
 
-    def saveStandaloneHTML(self, fileName):
+    def saveStandaloneHTML(self, fileName:str):
+        """_summary_
+
+        Args:
+            fileName (str): _description_
+        """
         eventsHTML = []
         imageMap = []
 
@@ -425,7 +440,12 @@ a{{
 
         return
 
-    def saveStaticFigure(self, folderName):
+    def saveStaticFigure(self, folderName:str):
+        """_summary_
+
+        Args:
+            folderName (str): _description_
+        """
         eventsLaTeX = []
         imageMap = []
         im = Image.open(self.backgroundImage)
