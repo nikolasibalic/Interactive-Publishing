@@ -4,6 +4,8 @@ version = "0.1.0"
 description = "Templates and tools for creating interactive figures and interactive text for publishing in EPUB3/HTML5."
 authors = ["Nikola Sibalic <nikolasibalic@physics.org>"]
 license = "BSD-3-Clause license"
+packages = [{include = "ifigures"}]
+
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
@@ -17,6 +19,7 @@ appdirs = "^1.4.4"
 mkdocs-glightbox = "^0.3.5"
 mkdocs-git-revision-date-localized-plugin = "^1.2.2"
 mkdocs-git-committers-plugin-2 = "^2.2.2"
+pngquant-cli = "^2.17.0.post5"
 
 [tool.poetry.dev-dependencies]
 

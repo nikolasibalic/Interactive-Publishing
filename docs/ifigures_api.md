@@ -29,6 +29,15 @@ Inputs for interactive figures are range sliders (including specially coloured `
 ::: ifigures.yAnnotate
 ::: ifigures.equation
 
+## Additional LaTeX commands
+
+Some special commands are defined by default for use in equation environment
+
+- `\ketbra{A,B}` results in $| A \rangle\langle B |$
+- `\braket{A,B}` results in $\langle A | B \rangle$
+- **Highlighting:** parts of equation can be higlighted in purple `\hp{...}`, yellow `\hy{...}`, blue `\hb{...}`, gray `\hg{...}`, lighter gray `\hgg{...}`, golden `\ho{...}` and red background `\hr{...}`.
+- **Frames** 
+
 ## Quantum state visualisations
 
 ::: ifigures.BlochSphere

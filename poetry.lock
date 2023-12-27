@@ -1379,6 +1379,21 @@ files = [
 Pillow = "*"
 
 [[package]]
+name = "pngquant-cli"
+version = "2.17.0.post5"
+description = "Precompiled binaries for pngquant, the lossy PNG compressor based on libimagequant."
+optional = false
+python-versions = "*"
+files = [
+    {file = "pngquant_cli-2.17.0.post5-py3-none-macosx_10_7_x86_64.whl", hash = "sha256:a6ee97d54e4fd968308ca3da55d46574d4100f053809c356fe5bbbfdccd13f9d"},
+    {file = "pngquant_cli-2.17.0.post5-py3-none-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:9848caaec973cf755a2b47c0f7698387ff1c29de7cf85442bb2399fcefe23c99"},
+    {file = "pngquant_cli-2.17.0.post5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:52558bc4b822050cd6bc29e5c4e4e417b0b529f77f9a9450fd612e6a81f27403"},
+    {file = "pngquant_cli-2.17.0.post5-py3-none-win32.whl", hash = "sha256:ef56ef51714c381704c0a43ede9424c3d5df16e00758066814876ef33374926f"},
+    {file = "pngquant_cli-2.17.0.post5-py3-none-win_amd64.whl", hash = "sha256:d2983bd83ee18df36da0dcc6959d45c6993f70f3d11ff13fedca10c68775cb8f"},
+    {file = "pngquant_cli-2.17.0.post5.tar.gz", hash = "sha256:bc4d19c228e4972b8d6336b73b710f40f4107d4dd39585c3f0ebbb3296b90569"},
+]
+
+[[package]]
 name = "pooch"
 version = "1.8.0"
 description = "\"Pooch manages your Python library's sample data files: it automatically downloads and stores them in a local directory, with support for versioning and corruption checks.\""
@@ -1893,4 +1908,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "b9d46091bc6613d525e03cf0d4e901729ca7bea984e86dda0ec97fd417bf73e0"
+content-hash = "d4ddbdf6f2c29a6ab44a5e5d435e895cdd625c9a14251d44a963b07d1578b195"

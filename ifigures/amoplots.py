@@ -206,7 +206,7 @@ class EnergyLevels:
 
                 imagebox = OffsetImage(arr_image)
                 # axis.plot([middle[0]],[middle[1]], "bo")
-                ab = AnnotationBbox(imagebox, xy=(middle[0], middle[1]), pad=0, frameon=debug)
+                ab = AnnotationBbox(imagebox, xy=(middle[0], middle[1]), pad=0, frameon=debug, fontsize=fontsize)
                 axis.add_artist(ab)
 
             # add detuning if existing
@@ -288,7 +288,7 @@ class BlochSphere:
     def __init__(self, r=3, resolution=3):
 
         self.p = pv.Plotter(shape=(1, 1),
-                       multi_samples=1,
+                     #  multi_samples=1,
                        window_size=(resolution * 600, resolution * 600),
                        off_screen=True,
                            notebook=False)
