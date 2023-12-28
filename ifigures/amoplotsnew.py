@@ -2,12 +2,10 @@ from .my_plots import *
 from .latex2png import latex2png
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
-import pyvista as pv
-from io import BytesIO
-from PIL import Image
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
-class EnergyLevelsNew:
+
+class EnergyLevels:
     """
     Generates energy level diagram with annotation.
     """

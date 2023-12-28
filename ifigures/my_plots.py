@@ -159,7 +159,7 @@ def getComplexColor(complexNo, maxAmplitude):
     """
     Get color for a complex numbers
 
-    Represents phase as continous colour wheel, and amplitude as intensity
+    Represents phase as continuous colour wheel, and amplitude as intensity
     of color (zero amplitude = white color), with linear mapping in between.
 
     Args:
@@ -179,7 +179,7 @@ def getComplexColor(complexNo, maxAmplitude):
 
 def white_to_transparency(img):
     """
-        Converts white areas of image to transprancy.
+        Converts white areas of image to transparency.
     """
     x = np.asarray(img.convert('RGBA')).copy()
 

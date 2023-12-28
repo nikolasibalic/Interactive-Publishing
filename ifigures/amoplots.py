@@ -2,12 +2,12 @@ from .my_plots import *
 from .latex2png import latex2png
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import pyvista as pv
 from io import BytesIO
 from PIL import Image
 
-class EnergyLevels:
+class EnergyLevelsOld:
     """
     Generates energy level diagram with annotation.
     """
@@ -257,17 +257,44 @@ def blobAnnotate(axis: plt.axis,
 
 
 def xAnnotate(axis, fromX, toX, color=cDUy, zorder=-2):
+    """_summary_
+
+    Args:
+        axis (_type_): _description_
+        fromX (_type_): _description_
+        toX (_type_): _description_
+        color (_type_, optional): _description_. Defaults to cDUy.
+        zorder (int, optional): _description_. Defaults to -2.
+    """
     axis.axvspan(fromX, toX, color=color, zorder=zorder)
 
 
 def yAnnotate(axis, fromY, toY, color=cDUy, zorder=-2):
+    """_summary_
+
+    Args:
+        axis (_type_): _description_
+        fromY (_type_): _description_
+        toY (_type_): _description_
+        color (_type_, optional): _description_. Defaults to cDUy.
+        zorder (int, optional): _description_. Defaults to -2.
+    """
     axis.axhspan(fromY, toY, color=color, zorder=zorder)
 
 
 def equation(latex, axis,fontsize=10, dpi=100, border=[4,4,4,4], debug=False,
              x=0.1, y=1):
-    """
-        Adds equations on the given axis plot (and turns off axis).
+    """Adds equations on the given axis plot (and turns off axis).
+
+    Args:
+        latex (_type_): _description_
+        axis (_type_): _description_
+        fontsize (int, optional): _description_. Defaults to 10.
+        dpi (int, optional): _description_. Defaults to 100.
+        border (list, optional): _description_. Defaults to [4,4,4,4].
+        debug (bool, optional): _description_. Defaults to False.
+        x (float, optional): _description_. Defaults to 0.1.
+        y (int, optional): _description_. Defaults to 1.
     """
     generator = latex2png()
     file = generator.make_png(latex, fontsize=fontsize, dpi=dpi, border=border)
@@ -281,11 +308,14 @@ def equation(latex, axis,fontsize=10, dpi=100, border=[4,4,4,4], debug=False,
         axis.set_axis_off()
 
 class BlochSphere:
-    """
-        Utilities for plotting Bloch Sphere
-    """
 
     def __init__(self, r=3, resolution=3):
+        """Utilities for plotting Bloch Sphere
+
+        Args:
+            r (int, optional): _description_. Defaults to 3.
+            resolution (int, optional): _description_. Defaults to 3.
+        """
 
         self.p = pv.Plotter(shape=(1, 1),
                      #  multi_samples=1,
@@ -342,8 +372,14 @@ class BlochSphere:
         pass
 
     def addStateBlob(self, x,y,z, color=cDUrr, radius=0.2):
-        """
-            Adds highlighted Blob on or inside the Bloch sphere.
+        """Adds highlighted Blob on or inside the Bloch sphere.
+
+        Args:
+            x (_type_): _description_
+            y (_type_): _description_
+            z (_type_): _description_
+            color (_type_, optional): _description_. Defaults to cDUrr.
+            radius (float, optional): _description_. Defaults to 0.2.
         """
         small = pv.Sphere(center=np.array([x, y, z])*self.r,
                           radius=self.r / 3 * radius)
@@ -351,8 +387,13 @@ class BlochSphere:
         pass
 
     def addStateArrow(self, x,y,z, color=cDUbbbb):
-        """
-            Adds state arrow to the Bloch sphere, given the tip position.
+        """Adds state arrow to the Bloch sphere, given the tip position.
+
+        Args:
+            x (_type_): _description_
+            y (_type_): _description_
+            z (_type_): _description_
+            color (_type_, optional): _description_. Defaults to cDUbbbb.
         """
         length = np.sqrt(x*x + y*y + z*z)
         arrow=pv.Arrow(start=(0.0, 0.0, 0.0), direction=np.array([x,y,z]) * self.r,
@@ -361,8 +402,10 @@ class BlochSphere:
         self.p.add_mesh(arrow, opacity=1.0, color=color, smooth_shading=True)
 
     def addTrajectory(self, trajectoryXYZ):
-        """
-            Adds trajectory in time, with time shown with viridis colouring.
+        """Adds trajectory in t, with t shown with viridis colouring.
+
+        Args:
+            trajectoryXYZ (_type_): _description_
         """
         spline = pv.Spline(trajectoryXYZ * self.r, 1000)
         spline["scalars"] = np.arange(spline.n_points)
@@ -383,8 +426,17 @@ class BlochSphere:
                         ],
               labelOffset=None
             ):
-        """
-            Plots Bloch sphere on the given axis.
+        """Plots Bloch sphere on the given axis.
+
+        Args:
+            axis (_type_, optional): _description_. Defaults to None.
+            debug (bool, optional): _description_. Defaults to False.
+            cameraPosition (list, optional): _description_. Defaults to [(12.2, 4.0, 4.0), (0.0, 0.0, 0.0), (0.0, 0.0, 1)].
+            labelAxis (bool, optional): _description_. Defaults to True.
+            labelSize (int, optional): _description_. Defaults to 12.
+            dpi (int, optional): _description_. Defaults to 100.
+            label (list, optional): _description_. Defaults to [r"$|e\rangle$", r"$|g\rangle$", r"$\frac{|e\rangle+|g\rangle}{\sqrt{2}}$", r"$\frac{|e\rangle+i|g\rangle}{\sqrt{2}}$" ].
+            labelOffset (_type_, optional): _description_. Defaults to None.
         """
         self.p.enable_depth_peeling(10)
         self.p.camera_position = cameraPosition
@@ -425,3 +477,61 @@ class BlochSphere:
 
             if not debug:
                 axis.set_axis_off()
+
+class DensityMatrix:
+
+    def __init__(self, with_grid=True):
+        """Color mapping of Density Matrix
+
+        Args:
+            with_grid (bool, optional): _description_. Defaults to True.
+        """
+        self.with_grid = with_grid
+        
+
+    def plot (self, axis:plt.axis, rho, visualise="with dots"):
+        """_summary_
+
+        Args:
+            axis (plt.axis): _description_
+            rho (_type_): _description_
+            visualise (str, optional): _description_. Defaults to "with dots".
+        """
+        
+        mdim = len(rho) # matrix dimension
+        
+        R=np.zeros((mdim, mdim))
+        G=np.zeros((mdim, mdim))
+        B=np.zeros((mdim, mdim))
+            
+        dots = {"x":[],
+                "y":[]}
+        referenceDots = {"x":[],
+                "y":[]}
+    
+        for col in range(0,mdim):
+            for row in range(0,mdim):
+                R[row,col]=getComplexColor(rho[row][col], 1.)[0]
+                G[row,col]=getComplexColor(rho[row][col], 1.)[1]
+                B[row,col]=getComplexColor(rho[row][col], 1.)[2]
+                dots["x"].append(row + rho[row][col].real * 0.44)
+                dots["y"].append(col + rho[row][col].imag * 0.44)
+                referenceDots["x"].append(col)
+                referenceDots["y"].append(row)
+
+        RGB=np.dstack((R, G, B))
+        axis.imshow(RGB)
+                
+        if (visualise == "with dots"):
+            axis.plot(dots["x"],dots["y"], "o", markeredgecolor=cDUk, markerfacecolor = cDUk, markersize =3, zorder=3)
+
+        if self.with_grid:
+            # add grid
+            for coord in np.arange(0,mdim+1,1):
+                axis.axhline(coord-0.5, color=cDUggg, zorder=2,linewidth=3)
+                axis.axvline(coord-0.5, color=cDUggg, zorder=2,linewidth=3)
+            
+        axis.set_xlim(-0.52, mdim-0.48)
+        axis.set_ylim(mdim-0.48,-0.52)
+        axis.set_axis_off() 
+       

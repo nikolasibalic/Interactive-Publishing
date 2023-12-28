@@ -30,9 +30,6 @@ class StaticWidget(object):
 
 
 class RangeWidget(StaticWidget):
-    """
-        Range (slider) widget
-    """
     slider_html = ('<div class="wrap"><div class="left"><p><b>{paramName} =</b></p></div>'
                    '<div class="right"><input type="range" name="{name}" '
                    'min="{range[0]}" max="{range[1]}" step="{range[2]}" '
@@ -42,6 +39,18 @@ class RangeWidget(StaticWidget):
     def __init__(self, min, max, step=1, name=None,
                  default=None, width=350, divclass=None,
                  show_range=False):
+        """Range (slider) widget
+
+        Args:
+            min (_type_): _description_
+            max (_type_): _description_
+            step (int, optional): _description_. Defaults to 1.
+            name (_type_, optional): _description_. Defaults to None.
+            default (_type_, optional): _description_. Defaults to None.
+            width (int, optional): _description_. Defaults to 350.
+            divclass (_type_, optional): _description_. Defaults to None.
+            show_range (bool, optional): _description_. Defaults to False.
+        """
         StaticWidget.__init__(self, name, divclass)
         self.datarange = (min, max, step)
         self.width = width
@@ -73,10 +82,6 @@ class RangeWidget(StaticWidget):
 
 
 class RangeWidgetViridis(RangeWidget):
-    """
-        Range (slider) widget that has viridis colourbar on background.
-        Useful for special parameter, e.g. time.
-    """
     slider_html = ('<div class="wrap"><div class="left"><p><b>{paramName} =</b></p></div>'
                    '<div class="right"><input class="viridisrange" type="range" name="{name}" '
                    'min="{range[0]}" max="{range[1]}" step="{range[2]}" '
@@ -86,15 +91,25 @@ class RangeWidgetViridis(RangeWidget):
     def __init__(self, min, max, step=1, name=None,
                  default=None, width=350, divclass=None,
                  show_range=False):
+        """Range (slider) widget that has viridis colourbar on background.
+        Useful for special parameter, e.g. time.
+
+        Args:
+            min (_type_): _description_
+            max (_type_): _description_
+            step (int, optional): _description_. Defaults to 1.
+            name (_type_, optional): _description_. Defaults to None.
+            default (_type_, optional): _description_. Defaults to None.
+            width (int, optional): _description_. Defaults to 350.
+            divclass (_type_, optional): _description_. Defaults to None.
+            show_range (bool, optional): _description_. Defaults to False.
+        """
         RangeWidget.__init__(self, min, max, step=step, name=name,
                  default=default, width=width, divclass=divclass,
                  show_range=show_range)
 
 
 class DropDownWidget(StaticWidget):
-    """
-        Drop down widget.
-    """
     select_html = ('<div class="wrap"><div class="left"><p><b>{nameParam} =</b></p></div>'
                    '<div class="right"> <select name="{name}" '
                       'onchange="interactUpdate(this.parentNode);"> '
@@ -107,6 +122,20 @@ class DropDownWidget(StaticWidget):
                  labels=None, default=None, divclass=None,
                  delimiter="      "
                  ):
+        """Drop down widget.
+
+        Args:
+            values (_type_): _description_
+            name (_type_, optional): _description_. Defaults to None.
+            labels (_type_, optional): _description_. Defaults to None.
+            default (_type_, optional): _description_. Defaults to None.
+            divclass (_type_, optional): _description_. Defaults to None.
+            delimiter (str, optional): _description_. Defaults to "      ".
+
+        Raises:
+            ValueError: _description_
+            ValueError: _description_
+        """
         StaticWidget.__init__(self, name, divclass)
         self._values = values
         self.delimiter = delimiter
@@ -143,9 +172,6 @@ class DropDownWidget(StaticWidget):
                                        options=options)
 
 class RadioWidget(StaticWidget):
-    """
-        Radio button widget
-    """
     radio_html = ('<input type="radio" name="{name}" value="{value}" '
                   '{checked} '
                   'onchange="interactUpdate(this.parentNode);">')
@@ -153,6 +179,20 @@ class RadioWidget(StaticWidget):
     def __init__(self, values, name=None,
                  labels=None, default=None, divclass=None,
                  delimiter="      "):
+        """Radio button widget
+
+        Args:
+            values (_type_): _description_
+            name (_type_, optional): _description_. Defaults to None.
+            labels (_type_, optional): _description_. Defaults to None.
+            default (_type_, optional): _description_. Defaults to None.
+            divclass (_type_, optional): _description_. Defaults to None.
+            delimiter (str, optional): _description_. Defaults to "      ".
+
+        Raises:
+            ValueError: _description_
+            ValueError: _description_
+        """
         StaticWidget.__init__(self, name, divclass)
         self._values = values
         self.delimiter = delimiter

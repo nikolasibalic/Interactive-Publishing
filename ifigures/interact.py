@@ -67,7 +67,6 @@ def _eformat(f, prec, exp_digits):
     return "%se%+0*d"%(mantissa, exp_digits+1, int(exp))
 
 class InteractiveFigure(object):
-    """Interactive Figure Object"""
 
     css_beatify = """
     <style type="text/css">
@@ -385,6 +384,13 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
             return _eformat(val, 6, 1)
 
     def __init__(self, function, **kwargs):
+        """Interactive Figure Object
+
+        Args:
+            function (_type_): Callable function that returns matplotlib figure and caption
+              and accepts same arguments as kwargs defined through Interactive Figure Input Controls
+            kwargs: keyword arguments that accept Interactive Figure input controls
+        """
         # TODO: implement *args (difficult because of the name thing)
         # update names
         for name in kwargs:
@@ -452,6 +458,19 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
                         labelPanels=True, dpi=300, labelSize=10,
                         labelOffset=(10,10), labelGenerator=None,
                         compress=False):
+        """_summary_
+
+        Args:
+            fileName (_type_): _description_
+            values (_type_, optional): _description_. Defaults to None.
+            figuresPerRow (int, optional): _description_. Defaults to 2.
+            labelPanels (bool, optional): _description_. Defaults to True.
+            dpi (int, optional): _description_. Defaults to 300.
+            labelSize (int, optional): _description_. Defaults to 10.
+            labelOffset (tuple, optional): _description_. Defaults to (10,10).
+            labelGenerator (_type_, optional): _description_. Defaults to None.
+            compress (bool, optional): _description_. Defaults to False.
+        """
         self.compress = compress
         names = [name for name in self.widgets]
 
@@ -523,8 +542,14 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
 
 
     def show(self, width=800, height=700):
-        """
-        Shows static png or interactive html figure in Jupyter notebook
+        """Shows static png or interactive html figure in Jupyter notebook
+
+        Args:
+            width (int, optional): _description_. Defaults to 800.
+            height (int, optional): _description_. Defaults to 700.
+
+        Returns:
+            _type_: _description_
         """
         assert self.fileName is not None, "before calling show(), save figure using saveStandaloneHTML  or  saveStaticFigure"
         if (self.overallCaption != ""): print(self.overallCaption)

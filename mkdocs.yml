@@ -142,4 +142,3 @@ markdown_extensions:
 
 navigation:
   - "ifigures API": ifigures_api.md
-  - "Examples gallery": docs/examples_gallery.md
