@@ -1,6 +1,6 @@
 # Interactive publishing
   
-Overview web page for [Interactive-Publishing GitHub repository](https://github.com/nikolasibalic/Interactive-publishing)
+This is documentation page for [Interactive-Publishing GitHub repository](https://github.com/nikolasibalic/Interactive-publishing)
 containing templates and tools for creating [interactive figures](#interactive-figure) and
 [interactive text](#interactive-text) for publishing in EPUB3/HTML5.
 
@@ -10,6 +10,37 @@ resources for publishing in HTML and EPUB3, please see
 [repository](https://github.com/nikolasibalic/Interactive-publishing).
 Created interactive elements can be incorporated in eBooks, blogs, web pages...
 or just uploaded online and shared with links.
+
+??? question "How is this different compared to other widgets/interactive plots available?"
+    This code strives to be as simple as possible, while providing key learning
+    functionality. This means that generated plots are stand-alone web pages,
+    with embedded minimal JavaScript code necessary for interactivity.
+    For viewing interactive figures, no JavaScript is loaded from online, which
+    means that everything can work in off-line environments.
+    Also, no calculations are performed in the browser. Instead, everything is calculated,
+    and interactive code just picks corrects static images. This ensures that
+    assumed infrastructure can be dumb and very low performance. Goal is that
+    it can work everywhere: from e-readers, to very old or very small computers.
+    
+    In short, in the words of Antoine de Saint-Exupery 
+    >''A designer knows he has achieved perfection not when there is nothing left to add, but when there is nothing left to take away.''
+    
+    We tried to remove everything except minimum needed to achieve interactive
+    learning. Focus is social outcome, not technological sophistication.
+    [Click here to see more on motivation and goals](./example_gallery/#motivation-and-goals)
+
+??? question "How to use interactive figures in presentations or online?"
+    Since created figures are stand-alone `.html` pages, standard `iframe` support
+    for embedding WebPages (remote or local `.html` files) in popular presentation 
+    making software solutions is one way. Same goes if you want to embed them
+    on your web-pages and blog posts.
+
+    We do recommend also to checkout 
+    [Caroline](https://github.com/nikolasibalic/Caroline),
+    open-source Python framework
+    for quick and simple creation of HTML presentations, that not only offers
+    native support for inclusion of interactive figures, but also host of other
+    features (including interaction with audience).
 
 ## Getting started
 
@@ -53,18 +84,5 @@ We provide some extensions useful for specific domains, in particular
 quantum physics and atomic, molecular and optical (AMO) physics for visualising
 quantum states and quantum dynamics. For more details [see here](../ifigures_api/#quantum-state-visualisations).
 
-## As used in...
 
-The university-level examples of use of this library are
-
-- [*Rydberg Physics*](https://iopscience.iop.org/book/mono/978-0-7503-1635-4/chapter/bk978-0-7503-1635-4ch1), Nikola Šibalić and Charles S Adams, IOP Publishing (2018)
-- [Optics f2f code book](https://opticsf2f.github.io/Opticsf2f_CodeBook/), showing
-examples from *Optics f2f: From Fourier to Fresnel*, Charles S. Adams and Ifan G. Hughes (2018)
-- [*An Interactive Guide to Quantum Optics*](https://blackwells.co.uk/bookshop/product/An-Interactive-Guide-to-Quantum-Optics-by-Nikola-Sibalic-author-Charles-S-Adams-author/9780750326278), Nikola Šibalić and C Stuart Adams, IOP Publishing (2024)
-
-The practical motivation for use of interactivity in teaching, science communication
-and policy discussions is presented at
-
-- [Do interactive figures help physicists to communicate their science?](https://physicsworld.com/a/do-interactive-figures-help-physicists-to-communicate-their-science/), Nikola Šibalić, *Physics World* blog (2019) 
-- [Learning through interacting](https://iopscience.iop.org/article/10.1088/2058-7058/32/5/22/meta), Nikola Šibalić, *Phys. World* **32** (5) 21 (2019)
 

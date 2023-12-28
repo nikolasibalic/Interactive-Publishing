@@ -1,4 +1,4 @@
-# `ifigures` API
+# API Documentation 
 
 
 ::: ifigures.InteractiveFigure  
@@ -111,6 +111,18 @@ Inputs for interactive figures are range sliders (including specially coloured `
 
     ![Annotation example](./assets/annotation_example.png)
 
+!!! tip "Why should one use annotations?"
+    Modern figures in reserach papers are often dense with information,
+    and **presume substantial previous knowledge** in order to be able to
+    focus the sight on few actually
+    relevant and interesting points. When working with interactive figures
+    we are not bound to one "dead" version of plot on the paper, but can
+    show multiple layers of annotations to help final knowledge consumers
+    digest important features first, **guiding their focus** in interpretation
+    gently.
+    More widely, teaching **plot literacy** to wider population is crucial for
+    informed decision-making.
+
 ::: ifigures.equation
 
 ## Additional LaTeX commands
@@ -160,14 +172,6 @@ Some special commands are defined by default for use in equation environment
 ::: ifigures.BlochSphere
 
 !!! Example "Bloch sphere example"
-    Example below shows Bloch sphere, with annotated key points of the sphere,
-    state trajectory in time shown as line with time encoded in viridis gradient,
-    state arrow, and two blobs highlighting in this case start and end of the
-    evolution. We also notice how trajectory of the system departs the
-    surface of the Bloch sphere and dives into inside due to decoherence.
-    Note that actual Bloch sphere plot is only last few lines of code, the rest
-    is calculation of dynamics.
-
     ```python
     import numpy as np
     import matplotlib.pyplot as plt
@@ -219,7 +223,15 @@ Some special commands are defined by default for use in equation environment
     bs.plot(axis=ax1)
 
     ```
-    ![tst](./assets/bs_example.png)
+    ![Bloch sphere example](./assets/bs_example.png)
+
+    Example above shows Bloch sphere, with annotated key points of the sphere,
+    state trajectory in time shown as line with time encoded in viridis gradient,
+    state arrow, and two blobs highlighting in this case start and end of the
+    evolution. We also notice how trajectory of the system departs the
+    surface of the Bloch sphere and dives into inside due to decoherence.
+    Note that actual Bloch sphere plot is only last few lines of code, the rest
+    is calculation of dynamics.
 
 ::: ifigures.DensityMatrix
 
