@@ -59,7 +59,7 @@ Standalone interactive text can be seen
 Purple elements can be changed by dragging or clicking, updating 
 calculated values given in green.
 
-<iframe src="../interactive_text.html" width="100%" height="200"></iframe>
+<iframe src="./interactive_text.html" width="100%" height="200"></iframe>
 
 ### Interactive figure
 
@@ -67,7 +67,7 @@ calculated values given in green.
 Standalone interactive figure can be seen [here](interactive_figure.html)
  or as a part of the page bellow.
 
-<iframe src="../interactive_figure.html" width="100%" height="780"></iframe>
+<iframe src="./interactive_figure.html" width="100%" height="780"></iframe>
 
 Try creating your own interactive texts and figures for science teaching
 and public communication. You can start by using templates from
@@ -76,7 +76,7 @@ Interactive-Publishing repository</a>.</p>
 
 ### Interactive timeline
 
-[Click to see example](../timeline_electromagnetism.html)
+[Click to see example](./timeline_electromagnetism.html)
 
 ## Domain packages
 
