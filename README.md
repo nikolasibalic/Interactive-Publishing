@@ -16,49 +16,12 @@ and be seen on all devices (even without Internet access),
 and they can be simply included in interactive texts/books in EPUB3 format,
 as well as web-pages.
 
-For quick overview what can be produced with templates check [HTML page of the
-project](https://nikolasibalic.github.io/Interactive-Publishing/).
-An example of EPUB3 eBook using interactive figures can be found
-[here](http://iopscience.iop.org/book/978-0-7503-1635-4/chapter/bk978-0-7503-1635-4ch1).
-An example of physics blogpost incorporating interactive figures can be
-found [here](https://piphase.wordpress.com/2019/01/26/youngs-double-slit-in-colour/).
+[**For detailed documentation and discussion of motivation and examples check here**](https://nikolasibalic.github.io/Interactive-Publishing/)
 
-[![DOI](https://zenodo.org/badge/163100222.svg)](https://zenodo.org/badge/latestdoi/163100222)
+[![DOI](https://zenodo.org/badge/163100222.svg)](https://zenodo.org/badge/latestdoi/163100222)  [![PyPI version](https://badge.fury.io/py/Interactive-Publishing.svg)](https://badge.fury.io/py/Interactive-Publishing) 
 
-Interactive text
-----------------
+---------
 
-For interactive text template see
-[```interactive_text.html```](interactive_text.html).
-To ship your figure, provide to users .html file (with embedded JavaScript
-calculations), together with TangleKit folder and Tangle.js accessible in
-root folder of the figure .html.
-
-You can start by changing text and calculation code in
-[```interactive_text.html```](interactive_text.html).
-Explore in-line documentation of [```TangleKit```](/TangleKit) for
-more details.
-
-
-
-Interactive figures
--------------------
-
-For interactive figure example see
-[```interactive_figure.html```](interactive_figure.html). It is generated
-by the provided Python file
-```
-python interactive_figure_generator.py
-```
-
-You can start building your own example by changing code in
-[```interactive_figure_generator.py ```](interactive_figure_generator.py),
-running Python to generate new
-interactive figure, and observe results by realoading
-[```interactive_figure.html```](interactive_figure.html) in any web-browser.
-
-[```index.html```](index.html) containts source code of project web-page
-that incorporates both examples.
 
 Note on implementation
 ----------------------
@@ -73,6 +36,8 @@ with minimal computational resources, like ereaders, and old phones.
 
 License
 -------
+Overall license is BSD-3-Clause as outlined included in `LICENSE.md`.
+
 This project uses [```TangleKit```](/TangleKit) package from this repository 
 for creating interactive text. That package is based on 
 on slightly modified and updated open-source
@@ -88,6 +53,5 @@ Python 2 and 3 are supported now, and few bugs are fixed.
 
 Licenses are inherited from the original projects mentioned above.
 They are permissive, and allow reuse, with or without modification, but for
-details check corresponding LICENSE files and code headers. Overal license
-is BSD-3-Clause.
+details check corresponding LICENSE files and code headers. 
 
