@@ -1,4 +1,4 @@
-__version__ = "1.2.0"
+__version__ = "0.2.0"
 
 from .interact import InteractiveFigure
 from .widgets import RadioWidget, RangeWidget, RangeWidgetViridis, DropDownWidget
