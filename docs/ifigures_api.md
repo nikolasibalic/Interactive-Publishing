@@ -3,8 +3,9 @@
 
 ::: ifigures.InteractiveFigure  
 
-!!! question "Why use interactive figure?"
-    This is discussed in Physics World blogpost and comment. In short, we want to allow exploration of many untold stories and edge cases. To build intuition, connections and maybe get even some inspiration for further work and extensions!
+!!! tip "Why use interactive figure?"
+    This is discussed in [Physics World blogpost and comment](../example_gallery/#motivation-and-goals). In short, we want to allow exploration of many untold stories and edge cases. To build intuition, connections and maybe get
+    inspired for further work!
 
 !!! Example "Simple interactive figure"
     ```python
@@ -46,6 +47,53 @@
 
     <iframe src="../interactive_figure.html" width="100%" height="780"></iframe>
 
+!!! example "Saving static version for printing"
+    Even when we create interactive figures, sometimes we do need to provide also
+    printed option. This can be easily done with `saveStaticFigure` method, which
+    we demonstrate on the previous example
+    ```python
+    from ifigures import InteractiveFigure, RangeWidget, RangeWidgetViridis, RadioWidget,DropDownWidget
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    def plot(amplitude, omega, time, color, f):
+        fig, ax = plt.subplots(figsize=(8, 4))
+        x = np.linspace(0, 10, 1000)
+        if f=="sin":
+            func = np.sin
+        else:
+            func = np.cos
+        ax.plot(x, amplitude * func(omega*x), color=color,
+                lw=5, alpha=0.4)
+        ax.set_xlim(0, 10)
+        ax.set_ylim(-1.1, 1.1)
+        ax.set_xlabel(r"Time, $t$")
+        ax.set_ylabel(r"$f(t)$")
+        ax.set_title("Figure title. f(x) = amplitude * %s(omega*x)"
+                    % (f))
+        ax.axvspan(time-0.1, time+0.1, color="0.9")
+
+        caption = "Figure caption. Amplitude = %.2f, omega = %.2f, color = %s, f(t) = amplitude * %s(omega*x). Highlighted time = %.2f" % (amplitude, omega, color, f, time)
+        return (fig, caption)
+
+
+    figure_example1 = InteractiveFigure(plot,
+                amplitude=RangeWidget(0.1, 0.9, 0.4),
+                omega=RangeWidget(1.0, 5.01, 2.0),
+                time=RangeWidgetViridis(1,9,4),
+                color=RadioWidget(['blue', 'green', 'red']),
+                f=DropDownWidget(["sin","cos"]))
+    figure_example1.saveStaticFigure("test.png",
+                                    [[0.5,1,1.5,"red","sin"],[0.5,3,1.6,"blue","sin"],
+                                    [0.5,1,1.5,"red","cos"],[0.5,3,1.6,"blue","cos"]])
+    print(figure_example1.overallCaption)
+    
+    ```
+    ![static figure example](./assets/example_static.png)
+
+    
+    `(a) Amplitude = 0.50, omega = 1.00, color = red, f(t) = amplitude * sin(omega*x). Highlighted time = 1.50, (b) Amplitude = 0.50, omega = 3.00, color = blue, f(t) = amplitude * sin(omega*x). Highlighted time = 1.60, (c) Amplitude = 0.50, omega = 1.00, color = red, f(t) = amplitude * cos(omega*x). Highlighted time = 1.50, (d) Amplitude = 0.50, omega = 3.00, color = blue, f(t) = amplitude * cos(omega*x). Highlighted time = 1.60`
+    
 
 ## Input controls for interactive figures
 
@@ -75,7 +123,7 @@ Inputs for interactive figures are range sliders (including specially coloured `
 
 ::: ifigures.InteractiveTimeline
 
-!!! question "Why use timelines?"
+!!! tip "Why use timelines?"
     Scientific progress is huge community effort, often undertaken over many decades. Our timelines also have **thickness** since we recognize the importance of cross-breeding of ideas and insights from different "rivers" of thought and experimentation. Timeline format allows readers to explore and understand all the connection in historical development.
 
 !!! example "Timeline for development of electromagnetism"
@@ -93,7 +141,7 @@ Inputs for interactive figures are range sliders (including specially coloured `
     import numpy as np
     import matplotlib.pyplot as plt
     from ifigures import *
-    from ifigures.my_plots import *  # for color scheme
+    from ifigures.style import *  # for color scheme
 
     fig, ax=plt.subplots(1,1,figsize=(3*1.6, 3))
 
@@ -249,5 +297,67 @@ Some special commands are defined by default for use in equation environment
     ```
     ![tst](./assets/dm_example.png)
 
+!!! tip "Why use coloured density matrixes"
+    They are capable of quickly conveying numerical results, arguably providing
+    better grasp of underlying physics than 3D bar charts. And of course
+    they work for multi-level systems.
+
 
 ::: ifigures.EnergyLevels
+
+!!! example
+    ```python    
+    import matplotlib.pyplot as plt 
+    import numpy as np
+    from ifigures import *
+    from ifigures.style import *
+
+    fig, ax1=plt.subplots(1, 1, figsize=(3 * 1.6, 3))
+
+    # Hamiltonian - driving
+    omega_1 = np.pi/1.5
+    omega_2 = np.pi * np.exp(1j * 0.5 * np.pi)
+
+    # Current state in the basis defined in order given below
+    state = [1/np.sqrt(2), -1j/2, -1/2]
+
+    el = EnergyLevels()
+    # basis - energy levels and their relative positions
+    el.add(r"$|\mathrm{g}\rangle$", 0, 0)    # |g>
+    el.add(r"$|\mathrm{m}\rangle$", 1, 2.9)  # |m>
+    el.add(r"$|\mathrm{e}\rangle$", 2, 0.2)  # |e>
+
+    el.addArrow(0,1,"",
+                strength=omega_1,
+                style="<->", color="red")
+    el.addArrow(1,2,"",
+                strength=omega_2,
+                style="<->")
+
+    el.setState([1/np.sqrt(2), -1j/2,-1/2])
+
+    el.plot(ax1)
+
+
+    plt.savefig("test1.png")
+    plt.show()
+    ```
+
+    ![example of state with dynamics indicated](./assets/example_state.png)
+
+    - State blob with color and size correspond to phase and amplitude
+    - small gray dot on the blobs indicates phasor tip, to allow also for colour blind readout
+    - external arches correspond to rotation of the small amplitude contribution for
+    amplitude going from lower to higher states, while inner circles arches correspond
+    to rotation of the small amplitude contribution from higher states to lower states.
+    - diameter of arched driving connection, and strength of the corresponding arrow, for
+    the drivings is proportional to relative strengths of driving.
+
+!!! tip "Why use this new energy level and state representation"
+    It can show features even in 2 level systems that are not visible on
+    Bloch sphere. Equally it can be generalized to many level and multi-partite
+    systems directly. Representation is such that it allows "visual integration"
+    of coherent dynamics. E.g. it is possible to directly see not only destructive
+    interference responsible for Electromagnetically Induced Transparency, but
+    also understand importance of laser phase. For many examples check the
+    [*An Interactive Guide to Quantum Optics*](https://blackwells.co.uk/bookshop/product/An-Interactive-Guide-to-Quantum-Optics-by-Nikola-Sibalic-author-Charles-S-Adams-author/9780750326278), Nikola Šibalić and C Stuart Adams, IOP Publishing (2024)

@@ -1,4 +1,6 @@
 from collections import OrderedDict
+from collections.abc import Callable
+from typing import List
 import itertools
 import base64
 import matplotlib as mpl
@@ -383,12 +385,12 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
         else:
             return _eformat(val, 6, 1)
 
-    def __init__(self, function, **kwargs):
+    def __init__(self, function:Callable[..., (plt.figure, str)], **kwargs):
         """Interactive Figure Object
 
         Args:
-            function (_type_): Callable function that returns matplotlib figure and caption
-              and accepts same arguments as kwargs defined through Interactive Figure Input Controls
+            function (Callable[...,(plt.figure, str)]): Callable function that returns matplotlib figure and caption
+                and accepts same arguments as kwargs defined through Interactive Figure Input Controls
             kwargs: keyword arguments that accept Interactive Figure input controls
         """
         # TODO: implement *args (difficult because of the name thing)
@@ -454,22 +456,25 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
         return("Interactive figure saved in file %s" % fileName)
 
 
-    def saveStaticFigure(self, fileName, values=None, figuresPerRow=2,
+    def saveStaticFigure(self, fileName:str, values: List[List]=None, figuresPerRow=2,
                         labelPanels=True, dpi=300, labelSize=10,
                         labelOffset=(10,10), labelGenerator=None,
                         compress=False):
-        """_summary_
+        """Saves static figure as specified file 
 
         Args:
-            fileName (_type_): _description_
-            values (_type_, optional): _description_. Defaults to None.
-            figuresPerRow (int, optional): _description_. Defaults to 2.
-            labelPanels (bool, optional): _description_. Defaults to True.
-            dpi (int, optional): _description_. Defaults to 300.
-            labelSize (int, optional): _description_. Defaults to 10.
-            labelOffset (tuple, optional): _description_. Defaults to (10,10).
-            labelGenerator (_type_, optional): _description_. Defaults to None.
-            compress (bool, optional): _description_. Defaults to False.
+            fileName (str): filename with extension (e.g. `example.png`).
+            values (List[List], optional): List of Lists of arguments. For each
+              one static panel will be created. If not specified will use
+              all the values provided by the Input widgets.
+            figuresPerRow (int, optional): Number of panels per final figure row.
+            labelPanels (bool, optional): Should we label panels with `(a), (b), ...`
+            dpi (int, optional): resolution in dots per inch.
+            labelSize (int, optional): Label size for individual panels
+            labelOffset (tuple, optional): Offset position of label.
+            labelGenerator (_type_, optional): _description_.
+            compress (bool, optional): Should we use [pngquant](https://pngquant.org/) to compress final
+              figure.
         """
         self.compress = compress
         names = [name for name in self.widgets]
@@ -545,11 +550,11 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
         """Shows static png or interactive html figure in Jupyter notebook
 
         Args:
-            width (int, optional): _description_. Defaults to 800.
-            height (int, optional): _description_. Defaults to 700.
+            width (int, optional): IFrame width in pixels.
+            height (int, optional): IFrame height in pixels.
 
         Returns:
-            _type_: _description_
+            IPython.display.IFrame: IFrame containing generated interactive figure
         """
         assert self.fileName is not None, "before calling show(), save figure using saveStandaloneHTML  or  saveStaticFigure"
         if (self.overallCaption != ""): print(self.overallCaption)

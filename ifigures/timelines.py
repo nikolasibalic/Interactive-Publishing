@@ -15,7 +15,7 @@ import numpy as np
 
 from string import ascii_lowercase
 from .latex2png import latex2png
-from .my_plots import white_to_transparency
+from .style import white_to_transparency
 
 import matplotlib as mpl
 mpl.rcParams['xtick.minor.visible'] = True

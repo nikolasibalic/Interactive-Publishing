@@ -1,5 +1,6 @@
 import copy
 import numpy as np
+from typing import List
 
 
 class StaticWidget(object):
@@ -36,20 +37,20 @@ class RangeWidget(StaticWidget):
                    'value="{default}" style="{style}" '
                    'oninput="interactUpdate(this.parentNode);" '
                    'onchange="interactUpdate(this.parentNode);"></div></div>')
-    def __init__(self, min, max, step=1, name=None,
+    def __init__(self, min:float, max:float, step:float=1, name=None,
                  default=None, width=350, divclass=None,
                  show_range=False):
         """Range (slider) widget
 
         Args:
-            min (_type_): _description_
-            max (_type_): _description_
-            step (int, optional): _description_. Defaults to 1.
-            name (_type_, optional): _description_. Defaults to None.
-            default (_type_, optional): _description_. Defaults to None.
-            width (int, optional): _description_. Defaults to 350.
-            divclass (_type_, optional): _description_. Defaults to None.
-            show_range (bool, optional): _description_. Defaults to False.
+            min (float): starting value for input value range
+            max (float): end value for input value range
+            step (float, optional): step size for input value range.
+            name (_type_, optional): _description_.
+            default (_type_, optional): _description_.
+            width (int, optional): _description_.
+            divclass (_type_, optional): _description_.
+            show_range (bool, optional): _description_.
         """
         StaticWidget.__init__(self, name, divclass)
         self.datarange = (min, max, step)
@@ -88,21 +89,21 @@ class RangeWidgetViridis(RangeWidget):
                    'value="{default}" style="{style}" '
                    'oninput="interactUpdate(this.parentNode);" '
                    'onchange="interactUpdate(this.parentNode);"></div></div>')
-    def __init__(self, min, max, step=1, name=None,
+    def __init__(self, min:float, max:float, step:float=1, name=None,
                  default=None, width=350, divclass=None,
                  show_range=False):
         """Range (slider) widget that has viridis colourbar on background.
         Useful for special parameter, e.g. time.
 
         Args:
-            min (_type_): _description_
-            max (_type_): _description_
-            step (int, optional): _description_. Defaults to 1.
-            name (_type_, optional): _description_. Defaults to None.
-            default (_type_, optional): _description_. Defaults to None.
-            width (int, optional): _description_. Defaults to 350.
-            divclass (_type_, optional): _description_. Defaults to None.
-            show_range (bool, optional): _description_. Defaults to False.
+            min (float): starting value for input value range
+            max (float): end value for input value range
+            step (float, optional): step size for input value range.
+            name (_type_, optional): _description_.
+            default (_type_, optional): _description_.
+            width (int, optional): _description_.
+            divclass (_type_, optional): _description_. 
+            show_range (bool, optional): _description_. 
         """
         RangeWidget.__init__(self, min, max, step=step, name=name,
                  default=default, width=width, divclass=divclass,
@@ -118,19 +119,20 @@ class DropDownWidget(StaticWidget):
         )
     option_html = ('<option value="{value}" '
                       '{selected}>{label}</option>')
-    def __init__(self, values, name=None,
-                 labels=None, default=None, divclass=None,
+    def __init__(self, values:List[type[str | float]], name=None,
+                 labels:List[str]=None, default=None, divclass=None,
                  delimiter="      "
                  ):
         """Drop down widget.
 
         Args:
-            values (_type_): _description_
-            name (_type_, optional): _description_. Defaults to None.
-            labels (_type_, optional): _description_. Defaults to None.
-            default (_type_, optional): _description_. Defaults to None.
-            divclass (_type_, optional): _description_. Defaults to None.
-            delimiter (str, optional): _description_. Defaults to "      ".
+            values (List[type[str | float]]): drop down option values
+            name (_type_, optional): _description_. 
+            labels (List[str], optional): labels for drop down options. By default
+            they are same as values.
+            default (_type_, optional): _description_. 
+            divclass (_type_, optional): _description_. 
+            delimiter (str, optional): _description_.
 
         Raises:
             ValueError: _description_
@@ -176,18 +178,18 @@ class RadioWidget(StaticWidget):
                   '{checked} '
                   'onchange="interactUpdate(this.parentNode);">')
 
-    def __init__(self, values, name=None,
-                 labels=None, default=None, divclass=None,
+    def __init__(self, values:List[type[str | float]], name=None,
+                 labels:List[str]=None, default=None, divclass=None,
                  delimiter="      "):
         """Radio button widget
 
         Args:
-            values (_type_): _description_
-            name (_type_, optional): _description_. Defaults to None.
-            labels (_type_, optional): _description_. Defaults to None.
-            default (_type_, optional): _description_. Defaults to None.
-            divclass (_type_, optional): _description_. Defaults to None.
-            delimiter (str, optional): _description_. Defaults to "      ".
+            values (List[str]): input option values
+            name (_type_, optional): _description_. 
+            labels (List[str], optional): _description_. 
+            default (_type_, optional): _description_.
+            divclass (_type_, optional): _description_. 
+            delimiter (str, optional): _description_. .
 
         Raises:
             ValueError: _description_
