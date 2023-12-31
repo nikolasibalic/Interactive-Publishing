@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "interactive-publishing"
-version = "0.2.2"
+version = "0.2.3"
 description = "Templates and tools for creating interactive figures and interactive text for publishing in EPUB3/HTML5."
 authors = ["Nikola Sibalic <nikolasibalic@physics.org>"]
 license = "BSD-3-Clause license"
