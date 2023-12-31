@@ -8,6 +8,7 @@ import matplotlib as mpl
 import matplotlib.colors as mcolors
 import numpy as np
 import colorsys
+from typing import List
 from PIL import Image
 
 mpl.rcParams['xtick.minor.visible'] = True
@@ -155,7 +156,7 @@ def getColor(amplitude, phase, maxAmplitude):
     return (c[0], c[1], c[2], 1.0)
 
 
-def getComplexColor(complexNo:complex, maxAmplitude:float):
+def getComplexColor(complexNo:complex, maxAmplitude:float)->List[float]:
     """
     Get color for a complex numbers
 
@@ -170,7 +171,7 @@ def getComplexColor(complexNo:complex, maxAmplitude:float):
             white color for zero amplitude.
 
     Returns:
-        color as [red, green, blue, alpha]
+        List[float]: color as [red, green, blue, alpha]
     """
     angle = np.angle(complexNo)
     if angle < 0:

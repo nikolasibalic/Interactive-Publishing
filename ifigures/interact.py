@@ -465,8 +465,8 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
         Args:
             fileName (str): filename with extension (e.g. `example.png`).
             values (List[List], optional): List of Lists of arguments. For each
-              one static panel will be created. If not specified will use
-              all the values provided by the Input widgets.
+                one static panel will be created. If not specified will use
+                all the values provided by the Input widgets.
             figuresPerRow (int, optional): Number of panels per final figure row.
             labelPanels (bool, optional): Should we label panels with `(a), (b), ...`
             dpi (int, optional): resolution in dots per inch.
@@ -474,7 +474,7 @@ input[type=range].viridisrange::-webkit-slider-runnable-track {
             labelOffset (tuple, optional): Offset position of label.
             labelGenerator (_type_, optional): _description_.
             compress (bool, optional): Should we use [pngquant](https://pngquant.org/) to compress final
-              figure.
+                figure.
         """
         self.compress = compress
         names = [name for name in self.widgets]

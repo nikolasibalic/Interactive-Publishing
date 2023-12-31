@@ -4,7 +4,7 @@
 ::: ifigures.InteractiveFigure  
 
 !!! tip "Why use interactive figure?"
-    This is discussed in [Physics World blogpost and comment](../example_gallery/#motivation-and-goals). In short, we want to allow exploration of many untold stories and edge cases. To build intuition, connections and maybe get
+    This is discussed in [Physics World blogpost and comment](example_gallery.md/#motivation-and-goals). In short, we want to allow exploration of many untold stories and edge cases. To build intuition, connections and maybe get
     inspired for further work!
 
 !!! Example "Simple interactive figure"
@@ -89,7 +89,7 @@
     print(figure_example1.overallCaption)
     
     ```
-    ![static figure example](./assets/example_static.png)
+    ![static figure example](assets/example_static.png)
 
     
     `(a) Amplitude = 0.50, omega = 1.00, color = red, f(t) = amplitude * sin(omega*x). Highlighted time = 1.50, (b) Amplitude = 0.50, omega = 3.00, color = blue, f(t) = amplitude * sin(omega*x). Highlighted time = 1.60, (c) Amplitude = 0.50, omega = 1.00, color = red, f(t) = amplitude * cos(omega*x). Highlighted time = 1.50, (d) Amplitude = 0.50, omega = 3.00, color = blue, f(t) = amplitude * cos(omega*x). Highlighted time = 1.60`
@@ -102,22 +102,22 @@ Inputs for interactive figures are range sliders (including specially coloured `
 ::: ifigures.RangeWidget
 
 !!! Example "Example: a static snapshot of input control widget"
-    ![Range widget](./assets/widget_range.png)
+    ![Range widget](assets/widget_range.png)
 
 ::: ifigures.RangeWidgetViridis
 
 !!! Example "Example: a static snapshot of input control widget"
-    ![Range widget viridis for time](./assets/widget_range_viridis.png)
+    ![Range widget viridis for time](assets/widget_range_viridis.png)
 
 ::: ifigures.RadioWidget
 
 !!! Example "Example: a static snapshot of input control widget"
-    ![Radio widget](./assets/widget_radio_button.png)
+    ![Radio widget](assets/widget_radio_button.png)
 
 ::: ifigures.DropDownWidget
 
 !!! Example "Example: a static snapshot of input control widget"
-    ![Drop down widget](./assets/widget_dropdown.png)
+    ![Drop down widget](assets/widget_dropdown.png)
 
 ## Interactive timeline
 
@@ -157,7 +157,7 @@ Inputs for interactive figures are range sliders (including specially coloured `
     ```
     produces 
 
-    ![Annotation example](./assets/annotation_example.png)
+    ![Annotation example](assets/annotation_example.png)
 
 !!! tip "Why should one use annotations?"
     Modern figures in reserach papers are often dense with information,
@@ -201,14 +201,14 @@ Some special commands are defined by default for use in equation environment
     ```
     results in
 
-    ![highlighted equations](./assets/equation_example.png)
+    ![highlighted equations](assets/equation_example.png)
 
 ## Quantum state visualisations
 
 ::: ifigures.getComplexColor
 
 !!! example "Mapping complex numbers to colors"
-    ![Complex color mapping](./assets/complex_color_mapping.png){width=300px  align=right}
+    ![Complex color mapping](assets/complex_color_mapping.png){width=300px  align=right}
     Mapping of complex number $A e^{i \phi}$ with amplitude $A$ and phase $\phi$
     to colours used by the library.
     Note that  complementary colours correspond
@@ -271,7 +271,7 @@ Some special commands are defined by default for use in equation environment
     bs.plot(axis=ax1)
 
     ```
-    ![Bloch sphere example](./assets/bs_example.png)
+    ![Bloch sphere example](assets/bs_example.png)
 
     Example above shows Bloch sphere, with annotated key points of the sphere,
     state trajectory in time shown as line with time encoded in viridis gradient,
@@ -295,7 +295,7 @@ Some special commands are defined by default for use in equation environment
 
     plt.show()
     ```
-    ![tst](./assets/dm_example.png)
+    ![tst](assets/dm_example.png)
 
 !!! tip "Why use coloured density matrixes"
     They are capable of quickly conveying numerical results, arguably providing
@@ -343,7 +343,7 @@ Some special commands are defined by default for use in equation environment
     plt.show()
     ```
 
-    ![example of state with dynamics indicated](./assets/example_state.png)
+    ![example of state with dynamics indicated](assets/example_state.png)
 
     - State blob with color and size correspond to phase and amplitude
     - small gray dot on the blobs indicates phasor tip, to allow also for colour blind readout

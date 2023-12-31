@@ -129,7 +129,7 @@ class DropDownWidget(StaticWidget):
             values (List[type[str | float]]): drop down option values
             name (_type_, optional): _description_. 
             labels (List[str], optional): labels for drop down options. By default
-            they are same as values.
+                they are same as values.
             default (_type_, optional): _description_. 
             divclass (_type_, optional): _description_. 
             delimiter (str, optional): _description_.

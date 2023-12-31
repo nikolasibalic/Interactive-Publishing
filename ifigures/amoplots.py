@@ -801,7 +801,7 @@ class DensityMatrix:
                 referenceDots["x"].append(col)
                 referenceDots["y"].append(row)
 
-        RGB=np.dstack((R, G, B))
+        RGB=np.dstack((R, G, B)).transpose()
         axis.imshow(RGB)
                 
         if (visualise == "with dots"):
