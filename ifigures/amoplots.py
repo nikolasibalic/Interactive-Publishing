@@ -796,8 +796,8 @@ class DensityMatrix:
                 R[row,col]=getComplexColor(rho[row][col], 1.)[0]
                 G[row,col]=getComplexColor(rho[row][col], 1.)[1]
                 B[row,col]=getComplexColor(rho[row][col], 1.)[2]
-                dots["x"].append(row + rho[row][col].real * 0.44)
-                dots["y"].append(col + rho[row][col].imag * 0.44)
+                dots["x"].append(col + rho[row][col].real * 0.44)
+                dots["y"].append(row - rho[row][col].imag * 0.44)
                 referenceDots["x"].append(col)
                 referenceDots["y"].append(row)
 
