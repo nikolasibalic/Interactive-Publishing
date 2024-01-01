@@ -509,8 +509,7 @@ a{{
         with open(latexFile, 'w') as f:
             f.write(eventsLaTeX)
 
-        print("Add generated folder and this line to use timeline in LaTeX:\n\input{%s}"
-             % latexFile)
+        print(f"Add generated folder and this line to use timeline in LaTeX:\n\input{latexFile}")
         return
 
 

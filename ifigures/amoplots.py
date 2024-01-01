@@ -6,6 +6,7 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import pyvista as pv
 from io import BytesIO
 from PIL import Image
+from os import environ
 
 
 class EnergyLevels:
@@ -708,7 +709,7 @@ class BlochSphere:
                         ],
               labelOffset=None
             ):
-        """Plots Bloch sphere on the given axis.
+        r"""Plots Bloch sphere on the given axis.
 
         Args:
             axis (_type_, optional): _description_. Defaults to None.
@@ -720,7 +721,8 @@ class BlochSphere:
             label (list, optional): _description_. Defaults to [r"$|e\rangle$", r"$|g\rangle$", r"$\frac{|e\rangle+|g\rangle}{\sqrt{2}}$", r"$\frac{|e\rangle+i|g\rangle}{\sqrt{2}}$" ].
             labelOffset (_type_, optional): _description_. Defaults to None.
         """
-        self.p.enable_depth_peeling(10)
+        if environ.get("PYVISTA_OFF_SCREEN") != "true":
+            self.p.enable_depth_peeling(10)
         self.p.camera_position = cameraPosition
         # [(13.0, 0.0, 1.0),
         #  (0.0, 0.0, 0.0),
