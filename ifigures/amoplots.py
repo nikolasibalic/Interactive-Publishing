@@ -722,11 +722,9 @@ class BlochSphere:
             labelOffset (_type_, optional): _description_. Defaults to None.
         """
         if environ.get("PYVISTA_OFF_SCREEN") != "true":
+            # prevent missing meshes in headless envirnments https://github.com/pyvista/pyvista/issues/2592
             self.p.enable_depth_peeling(10)
         self.p.camera_position = cameraPosition
-        # [(13.0, 0.0, 1.0),
-        #  (0.0, 0.0, 0.0),
-        #  (0.1, 0.0, 0.1)]
 
         if axis==None:
             if labelAxis:
