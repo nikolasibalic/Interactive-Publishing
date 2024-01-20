@@ -9,7 +9,7 @@ The university-level examples of use of this library are
 examples from *Optics f2f: From Fourier to Fresnel*, Charles S. Adams and Ifan G. Hughes (2018)
 - An example of physics blogpost incorporating interactive figures can be
 found [here](https://piphase.wordpress.com/2019/01/26/youngs-double-slit-in-colour/).
-- [*An Interactive Guide to Quantum Optics*](https://blackwells.co.uk/bookshop/product/An-Interactive-Guide-to-Quantum-Optics-by-Nikola-Sibalic-author-Charles-S-Adams-author/9780750326278), Nikola Šibalić and C Stuart Adams, IOP Publishing (2024)
+- [*An Interactive Guide to Quantum Optics*](https://iopscience.iop.org/book/mono/978-0-7503-2628-5), Nikola Šibalić and C Stuart Adams, IOP Publishing (2024)
 
 
 ## Motivation and goals

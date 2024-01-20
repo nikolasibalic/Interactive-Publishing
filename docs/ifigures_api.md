@@ -360,4 +360,4 @@ Some special commands are defined by default for use in equation environment
     of coherent dynamics. E.g. it is possible to directly see not only destructive
     interference responsible for Electromagnetically Induced Transparency, but
     also understand importance of laser phase. For many examples check the
-    [*An Interactive Guide to Quantum Optics*](https://blackwells.co.uk/bookshop/product/An-Interactive-Guide-to-Quantum-Optics-by-Nikola-Sibalic-author-Charles-S-Adams-author/9780750326278), Nikola Šibalić and C Stuart Adams, IOP Publishing (2024)
+    [*An Interactive Guide to Quantum Optics*](https://iopscience.iop.org/book/mono/978-0-7503-2628-5), Nikola Šibalić and C Stuart Adams, IOP Publishing (2024)
