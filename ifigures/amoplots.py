@@ -702,10 +702,10 @@ class BlochSphere:
              labelAxis=True,
              labelSize=12,
              dpi=100,
-             label=[r"$|e\rangle$",
-                         r"$|g\rangle$",
-                         r"$\frac{|e\rangle+|g\rangle}{\sqrt{2}}$",
-                         r"$\frac{|e\rangle+i|g\rangle}{\sqrt{2}}$"
+             label=[r"$|g\rangle$",
+                         r"$|\rm e\rangle$",
+                         r"$\frac{|\rm g\rangle+|\rm e\rangle}{\sqrt{2}}$",
+                         r"$\frac{|\rm g\rangle+i|\rm e\rangle}{\sqrt{2}}$"
                         ],
               labelOffset=None
             ):
