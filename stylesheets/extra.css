@@ -1,0 +1,21 @@
+iframe{
+border: 1px solid;
+border-color: rgb(200,200,200);
+background-color: white;
+border-radius: 3px;
+padding:5px;
+}
+.md-header{
+    backdrop-filter: saturate(180%) blur(20px);
+    background-color: rgba(10,10,10,0.8);
+}
+
+div.doc-contents{
+    padding-left: 25px;
+    border-left: 0.05rem solid var(--md-typeset-table-color);
+}
+
+[data-md-color-scheme="custom-bright"] {
+    --md-default-bg-color: rgb(240, 240, 240);
+  }
+  
