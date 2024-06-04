@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Interactive text example</title>
+
+	<!-- Tangle -->
+	<script type="text/javascript" src="javascripts/Tangle.js"></script>
+
+	<!-- TangleKit (optional) -->
+	<link rel="stylesheet" href="javascripts/TangleKit/TangleKit.css" type="text/css">
+	<script type="text/javascript" src="javascripts/TangleKit/mootools.js"></script>
+	<script type="text/javascript" src="javascripts/TangleKit/sprintf.js"></script>
+	<script type="text/javascript" src="javascripts/TangleKit/BVTouchable.js"></script>
+	<script type="text/javascript" src="javascripts/TangleKit/TangleKit.js"></script>
+
+	<!-- example -->
+	<script type="text/javascript">
+
+		function setUpTangle () {
+
+			var element = document.getElementById("example1");
+
+			var tangle = new Tangle(element, {
+				initialize: function () {
+					this.lightBulbs = 3;
+					this.lightOnHoursDaily = 4;
+					this.priceOfkWh = 0.16;
+					this.lightType = 0;
+				},
+				update: function () {
+					switch(this.lightType){ // powers of 1100 lumen light bulbs
+						case 0:  // traditional
+							this.powerOfLightBulb = 75;
+							break;
+						case 1:  // Halogen
+							this.powerOfLightBulb =  56;
+							break;
+						case 2:  // CFL
+							this.powerOfLightBulb =  18;
+							break;
+						default:  // LED
+							this.powerOfLightBulb =  15;
+					}
+					this.energyConsumtion = this.lightBulbs * this.lightOnHoursDaily * 365 * this.powerOfLightBulb / 1000; // in kWh
+					this.yearlyPrice = sprintf("%.0f", this.energyConsumtion * this.priceOfkWh);
+				}
+			});
+		}
+
+	</script>
+</head>
+
+<body onload="setUpTangle();">
+
+
+<div id="example1">
+	<p><b>Example 1:</b> Yearly electricity consumption for illumination.</p>
+
+	<p>
+		If you use <span data-var="lightBulbs" class="TKAdjustableNumber" data-min="1" data-max="100"> light sources</span>
+		  that are based on
+		<span data-var="lightType" class="TKList TKSwitch">
+			<span>traditional incandescent bulbs</span>
+			<span>halogen bulb</span>
+			<span>compact fluorescent lamps (CFL) bulb</span>
+			<span>light emitting diodes (LED) bulb</span>
+		</span>,
+	  for <span data-var="lightOnHoursDaily" class="TKAdjustableNumber" data-min="1" data-max="24"> hours</span> daily on average
+		you will consume <span class="TKresult" data-var="energyConsumtion"> kWh</span> of electricity over the year,
+		that cost <span class="TKresult" data-var="yearlyPrice"> &pound;</span>.
+		<p> Calculation assumes electricity price of <span data-var="priceOfkWh"> &pound;/kWh</span>
+			and ~1100 lumen brightness of each light source).
+		</p>
+	</p>
+</div>
+
+</body>
+</html>
